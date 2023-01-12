@@ -20,6 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
 import './ProductPage.css'
+import { Checkbox } from "@mui/material";
 
 function ProductPage() {
   const { openModal, setOpenModal,productIdEdit,updating, setProductIdEdit, setUpdating } = React.useContext(AppContext);
@@ -27,6 +28,7 @@ function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [itemSearch, setItemSearch] = useState('');
+  const [selected, setSelected] = useState([]);
     
   useEffect(() => {
     getListProductView().then(data => {
@@ -71,8 +73,35 @@ function ProductPage() {
     if (event.target.name === 'itemSearch')    
     setItemSearch(event.target.value)
   }
-  
 
+
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = products.map((n) => n.name);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
+
+
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected = [];
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+    }
+    setSelected(newSelected);
+  };
+  
+  
   return (
     <div className="product-page-container">
       <div className="product-page">
@@ -93,7 +122,7 @@ function ProductPage() {
               placeholder="Buscar"
               value={itemSearch}
               onChange={onChange}
-          />
+              />
           <button type="submit" className="button-new-product"> Buscar </button>
         </form>
         
@@ -106,6 +135,7 @@ function ProductPage() {
       <Table sx={{ minWidth: 450 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell>Select</TableCell>
             <TableCell>Nombre</TableCell>
             <TableCell align="left">Clima</TableCell>            
             <TableCell align="left">Precio</TableCell>
@@ -113,25 +143,34 @@ function ProductPage() {
             <TableCell align="left">Mesa</TableCell>
             <TableCell align="left">Invernadero</TableCell>
             <TableCell align="left">Sede</TableCell>
+            <TableCell align="left">Cantidad</TableCell>
             <TableCell align="left"><ListIcon /></TableCell>
             
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
+
+          {products.slice ().map((row) => {
+            const { id, nombre, clima, precio, idCategoria, idMesa, idInvernadero, sede} = row;
+            const selectedProduct = selected.indexOf(nombre) !== -1;
+            
+            return (
             <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            key={row.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            role="checkbox" selected={selectedProduct}
             >
-              <TableCell align="left">
-                {row.nombre}
-              </TableCell>
+            <TableCell padding="checkbox">
+              <Checkbox checked={selectedProduct} onChange={(event) => handleClick(event, nombre)} />
+            </TableCell>
+              <TableCell align="left">{row.nombre}</TableCell>
               <TableCell align="left">{row.clima}</TableCell>
-              <TableCell align="left">{row.precio}</TableCell>
+              <TableCell align="left">{row.precio}{" $"}</TableCell>
               <TableCell align="left">{row.categoria}</TableCell>           
               <TableCell align="left">{row.mesa}</TableCell>
               <TableCell align="left">{row.invernadero}</TableCell>
               <TableCell align="left">{row.sede}</TableCell>
+              <TableCell align="left">{row.cantidad}</TableCell>
               <TableCell align="left">
                 <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
                   <EditIcon fontSize="small"  color="info"/>
@@ -143,7 +182,8 @@ function ProductPage() {
                    </IconButton>
               </TableCell>
             </TableRow>
-          ))}
+            );
+          })}
         </TableBody>
       </Table>
       

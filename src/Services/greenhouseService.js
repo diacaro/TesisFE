@@ -24,7 +24,7 @@ const createGreenhouse = async (invernadero) => {
 }
 
 const findByIdGreenhouse = async (invernaderoId) => {
-    const response = await fetch(`${API}/${invernaderoId}`,{
+    const response = await fetch(`${API}/invernadero/${invernaderoId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -63,6 +63,14 @@ const updateGreenhouse = async (invernadero) => {
     return await resp.json();
 }
 
+const deleteGreenhouse = async (invernaderoId) => {
+    const resp = await fetch(`${API}/invernadero/delete/${invernaderoId}`, {
+        method: 'DELETE',
+        headers: getHeadersAndToken()              
+    });
+    return await resp.json();
+}
+
 export {
     getListGreenhouse,
     createGreenhouse,
@@ -70,5 +78,6 @@ export {
     updateGreenhouse,
     listByNameGreenhouse,
     // listByNuiGreenhouse
+    deleteGreenhouse,
     
 }

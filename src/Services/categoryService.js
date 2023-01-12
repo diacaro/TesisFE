@@ -44,17 +44,18 @@ const updateCategory = async (categoria) => {
 
 
 const deleteCategory = async (categoriaId) => {
-    const resp = await fetch(`${API}/categoria/delete/${categoriaId}`, {
+    const respo = await fetch(`${API}/categoria/delete/${categoriaId}`, {
         method: 'DELETE',
         headers: getHeadersAndToken()              
     });
-    return await resp.json();
+    return await respo.json();
 }
 
 export {
     getListCategory,
     createCategory,
     findByIdCategory,
-    updateCategory,deleteCategory
+    updateCategory,
+    deleteCategory
     
 }

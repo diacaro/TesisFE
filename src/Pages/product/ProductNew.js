@@ -34,6 +34,7 @@ function ProductNew() {
   const [precio, setPrecio] = useState("");
   const [idInvernadero, setIdInvernadero] = useState("");
   const [sede, setSede] = useState("");
+  const [cantidad, setCantidad] = useState("");
   const [error, setError] = useState(false);
 
   const [saving, setSaving] = useState(false);
@@ -55,6 +56,7 @@ function ProductNew() {
       idMesa,
       idInvernadero,
       sede,
+      cantidad
     }).then((data) => {
       if (data.status === 200) {
         // setRefreshProducts(true);
@@ -88,6 +90,10 @@ function ProductNew() {
     setOpenModal(false);
   };
 
+  // const handleChange = (event) => {
+  //   setClima({value: event.target.value});
+  // }
+
   const onChange = (event) => {
     if (event.target.name === "nombre") setNombre(event.target.value);
     if (event.target.name === "clima") setClima(event.target.value);
@@ -96,6 +102,7 @@ function ProductNew() {
     if (event.target.name === "idMesa") setIdMesa(event.target.value);
     if (event.target.name === "idInvernadero") setIdInvernadero(event.target.value);
     if (event.target.name === "sede") setSede(event.target.value);
+    if (event.target.name === "cantidad") setCantidad(event.target.value);
   };
 
   return (
@@ -124,6 +131,25 @@ function ProductNew() {
             value={clima}
             onChange={onChange}
           />
+
+          {/* <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Clima</InputLabel>
+            <Select
+              size="small"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              defaultValue={clima}
+              name="clima"
+              label="Clima"
+              onChange={handleChange}
+            >
+              <option value="caliente">Caliente</option>
+              <option value="intermedio">Intermedio</option>
+              <option value="frio">Frio</option>
+            
+            </Select>
+          </FormControl> */}
+
           <TextField
             size="small"
             id="outlined-basic"
@@ -201,6 +227,16 @@ function ProductNew() {
             onChange={onChange}
           />
 
+          <TextField
+            size="small"
+            type="number"
+            id="outlined-basic"
+            label="Cantidadio"
+            variant="outlined"
+            name="cantidad"
+            value={cantidad}
+            onChange={onChange}
+          />
 
           <Button type="submit" variant="outlined">
             Guardar

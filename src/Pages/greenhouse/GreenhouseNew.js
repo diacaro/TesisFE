@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { createGreenhouse } from '../../Services/greenhouseService'
 import './GreenhouseNew.css'
-
-import { InvoiceContext } from "../invoice/InvoiceContext";
-import { createDesk } from '../../Services/deskService'
-
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -16,31 +11,32 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function GreenhouseNew({ open }) {
-  const { searchGreenhouse, setSearchGreenhouse } = React.useContext(InvoiceContext);
+  const { searchGreenhouse, setSearchGreenhouse } = React.useContext(AppContext);
   const { setGreenhouseId, setOpenModal, setUpdating, GreenhouseNewInvoice, setGreenhouseNewInvoice } = React.useContext(AppContext);  
-  const [greenhouse, setGreenhouse] = useState({ nui: '', fullname: '', address: ''});
+  const [invernadero, setInvernadero] = useState({});
+  const [sede, setSede] = useState({});
   const [error, setError] = useState(false);
-  const [fullname, setFullname] = useState('');
 
   const onClickSave = () => {
 
-    if (!fullname) {
+    if (!invernadero) {
       setError(true)
     }
     else {
       createGreenhouse({
-        fullname
+        invernadero,
+        sede
       }).then(data => {
         setOpenModal(false);
-        setSearchGreenhouse(data.fullname)
+        setUpdating(false);
       })
     }
   }
 
 
   const onChange = (event) => {
-    if (event.target.name === 'fullname')
-      setFullname(event.target.value)
+    if (event.target.name === 'invernadero') setInvernadero(event.target.value)
+    if (event.target.name === 'sede') setSede(event.target.value)
 
   }
 
@@ -53,17 +49,27 @@ function GreenhouseNew({ open }) {
     <div>
 
     <Dialog open={open} onClose={handleClose} >
-      <DialogTitle>Nuevo Cliente </DialogTitle>
+      <DialogTitle>Nuevo Invernadero </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Indicación cliente: Ingresar nombres y apellidos completos
+          Ingrese el nuevo invernadero
         </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
-          id="name"
-          label="Nombres"          
-          name="fullname"
+          id="inernadero"
+          label="Invernadero"          
+          name="invernadero"
+          fullWidth
+          onChange={onChange}
+          variant="standard"
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="sede"
+          label="Sede"          
+          name="sede"
           fullWidth
           onChange={onChange}
           variant="standard"
@@ -71,7 +77,7 @@ function GreenhouseNew({ open }) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={onClickSave}>Guardar</Button>
+        <Button onClick={onClickSave}>Agregar</Button>
       </DialogActions>
     </Dialog>
   </div>

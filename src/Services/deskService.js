@@ -12,6 +12,25 @@ const getListDesk = async () => {
     return  data;
 }
 
+const getListDeskInvernadero = async (invernaderoId) => {
+    const response = await fetch(`${API}/mesa/invernadero/${invernaderoId}`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
+const getListDeskView = async () => {
+    const response = await fetch(`${API}/mesa/view/desk`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
+
 
 const createDesk = async (mesa) => {
     const resp = await fetch(`${API}/mesa`, {
@@ -55,6 +74,9 @@ export {
     getListDesk,
     createDesk,
     findByIdDesk,
-    updateDesk,deleteDesk
+    updateDesk,
+    deleteDesk,
+    getListDeskView,
+    getListDeskInvernadero
     
 }

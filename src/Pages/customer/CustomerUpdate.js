@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { findByIdGreenhouse, getListGreenhouse, updateGreenhouse } from '../../Services/greenhouseService'
-import './GreenhouseUpdate.css'
+import { findByIdCustomer, updateCustomer } from '../../Services/customerService'
+import './CustomerUpdate.css'
 
-function GreenhouseUpdate({ invernaderoId }) {
-    console.log(invernaderoId)
+function CustomerUpdate({ customerId }) {
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
-    const [greenhouse, setGreenhouse] = useState({});
+    const [customer, setCustomer] = useState({});
   
     const onSubmit = (event) => {
         event.preventDefault();
-        updateGreenhouse(greenhouse).then(data => {
+        updateCustomer(customer).then(data => {
             setClossing(data.name);
             setOpenModal(false);
             setUpdating(false);
@@ -25,37 +24,33 @@ function GreenhouseUpdate({ invernaderoId }) {
     }
 
     const onChange = (event) => {
-        if (event.target.name === 'invernadero')
-        setGreenhouse({ ...greenhouse, invernadero: event.target.value })
+        setCustomer({
+            ...customer,
+            [event.target.name]: event.target.value
+        })
     }
 
     useEffect(() => {
-        findByIdGreenhouse(invernaderoId).then(data =>
-            setGreenhouse(data)
+        findByIdCustomer(customerId).then(data =>
+            setCustomer(data)
         );
-    }, [invernaderoId]);
-
-    useEffect(() => {
-        getListGreenhouse().then(data =>
-            setGreenhouse(data)
-        );
-    }, []);
+    }, [customerId]);
 
     return (
         <div className="update">
             <div className="update-form-container">                
                 <div className="modal__tittle">
-            <h1 className="title">Editar invernadero</h1>
+            <h1 className="title">Editar cliente</h1>
                 {closssing && <p>Actualizando... {closssing}</p>}
             <button className="modal__button__close" onClick={onClickClose}>x</button>
           </div>
                 <form onSubmit={onSubmit}>
                     <div className="update-form-row">
                         <label className="update-label">
-                            Invernadero
+                            Nombres
                             <input
-                                name="invernadero"
-                                value={greenhouse.invernadero}
+                                name="fullname"
+                                value={customer.fullname}
                                 onChange={onChange}
                                 className="update-input"
                             />
@@ -64,16 +59,30 @@ function GreenhouseUpdate({ invernaderoId }) {
                     </div>
                     <div className="update-form-row">
                         <label className="update-label">
-                            Sede
+                            Cedula
                             <input
-                                name="sede"
-                                value={greenhouse.sede}
+                                name="nui"
+                                value={customer.nui}
                                 onChange={onChange}
                                 className="update-input"
                             />
                         </label>
 
                     </div>
+                    <div className="update-form-row">
+                        <label className="update-label">
+                            Direccion
+                            <input
+                                name="address"
+                                value={customer.address}
+                                onChange={onChange}
+                                className="update-input"
+                            />
+                        </label>
+
+                    </div>
+
+
 
                     <button type="submit" className="update-primary-button update-button">Actualizar</button>
                 </form>
@@ -82,4 +91,4 @@ function GreenhouseUpdate({ invernaderoId }) {
     );
 }
 
-export default GreenhouseUpdate
+export default CustomerUpdate

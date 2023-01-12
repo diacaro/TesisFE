@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { findByIdProduct, updateProduct } from '../../Services/productService'
-import { getListDesk } from '../../Services/deskService'
+import { getListDesk, getListDeskInvernadero } from '../../Services/deskService'
 import { getListGreenhouse } from '../../Services/greenhouseService'
 import './ProductUpdate.css'
 import { getListCategory } from "../../Services/categoryService";
@@ -12,8 +12,9 @@ function ProductUpdate({ productId }) {
     const [mesa, setDesk] = useState([]);
     const [invernadero, setGreenhouse] = useState([]);
     const [closssing, setClossing] = useState('')
+    const [idInvernadero, setIdInvernadero] = useState("")
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
-    const [product, setProduct] = useState({ nombre: '', clima: '', precio: '', mesaId: '', invernaderoId: '', sede: '' });
+    const [product, setProduct] = useState({ nombre: '', clima: '', precio: '',  sede: '', cantidad: '', idCategoria: '', idMesa: '' });
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -38,14 +39,16 @@ function ProductUpdate({ productId }) {
             setProduct({ ...product, clima: event.target.value })
         if (event.target.name === 'precio')
             setProduct({ ...product, precio: event.target.value })
-        if (event.target.name === 'categoriaId')
-            setProduct({ ...product, categoriaId: event.target.value })
-        if (event.target.name === 'mesaId')
-            setProduct({ ...product, mesaId: event.target.value })
-        if (event.target.name === 'invernaderoID')
-            setProduct({ ...product, stock: event.target.value })
+        if (event.target.name === 'idCategoria')
+            setProduct({ ...product, idCategoria: event.target.value })
+        if (event.target.name === 'idMesa')
+            setProduct({ ...product, idMesa: event.target.value })
+        if (event.target.name === 'idInvernadero')
+            setIdInvernadero(event.target.value )
         if (event.target.name === 'sede')
             setProduct({ ...product, status: event.target.value })
+        if (event.target.name === 'cantidad')
+            setProduct({ ...product, cantidad: event.target.value })     
     }
 
     useEffect(() => {
@@ -59,6 +62,13 @@ function ProductUpdate({ productId }) {
             setDesk(data)
         );
     }, []);
+
+    useEffect(() => {
+        getListDeskInvernadero(idInvernadero).then(data =>
+            setDesk(data)
+        );
+    }, [idInvernadero]);
+
     useEffect(() => {
         getListGreenhouse().then(data =>
             setGreenhouse(data)
@@ -109,14 +119,17 @@ function ProductUpdate({ productId }) {
                                 onChange={onChange}
                                 className="modal__input modal__input-name"
                             />
+                            <label className="modal__label"> $</label>
                         </label>
                         <div className="modal__formrow">
 
+                        <label className="modal__label">
+                        Categoria </label>
                         <select
                             className="modal__select"
-                            name="categoriaId"
+                            name="idCategoria"
                             onChange={onChange}
-                            value={product.categoriaId}                        >
+                            value={product.idCategoria}                        >
                             <option>Categoria---</option>
                             {
                                 category.map(item =>
@@ -127,12 +140,13 @@ function ProductUpdate({ productId }) {
                         </div>
 
                         <div className="modal__formrow">
-
+                        <label className="modal__label">
+                        Mesa </label>
                         <select
                             className="modal__select"
-                            name="mesaId"
+                            name="idMesa"
                             onChange={onChange}
-                            value={product.mesaId}                        >
+                            value={product.idMesa}                        >
                             <option>Mesa---</option>
                             {
                                 mesa.map(item =>
@@ -142,12 +156,15 @@ function ProductUpdate({ productId }) {
                         </select>
 
                     </div>
+                    <label className="modal__label">
+                        Invernadero </label>
                     <select
+                            
                             className="modal__select"
-                            name="invernaderoId"
+                            name="idInvernadero"
                             onChange={onChange}
-                            value={product.invernaderoId}                        >
-                            <option>Invernadero---</option>
+                            value={idInvernadero}                        >
+                            <option>Invernadero</option>
                             {
                                 invernadero.map(item =>
                                     <option key={item.id} value={item.id}>{item.invernadero}</option>
@@ -156,6 +173,15 @@ function ProductUpdate({ productId }) {
                         </select>
 
                     <div className="modal__formrow">
+                    <label className="modal__label">
+                            Cantidad
+                            <input
+                                name="cantidad"
+                                value={product.cantidad}
+                                onChange={onChange}
+                                className="modal__input modal__input-name"
+                            />
+                        </label>                     
 
                     </div>
 

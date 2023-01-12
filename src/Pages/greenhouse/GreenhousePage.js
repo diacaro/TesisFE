@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getListGreenhouse, listByNameGreenhouse } from '../../Services/greenhouseService'
+import { getListGreenhouse, listByNameGreenhouse, deleteGreenhouse } from '../../Services/greenhouseService'
 import GreenhouseNew from "./GreenhouseNew.js";
 import GreenhouseUpdate from './GreenhouseUpdate'
 import { AppContext } from "../../Context/AppContext";
@@ -15,21 +15,23 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ListIcon from '@mui/icons-material/List';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Modal } from '../../Modal/index'
 import './GreenhousePage.css'
+
 
 function GreenhousePage() {
 
   const { openModal, setOpenModal, greenhouseIdEdit,setGreenhouseIdEdit, updating, setUpdating,  } = React.useContext(AppContext);
   const [loading, setLoading] = useState(true);
-  const [invernaderos, setGreenhouses] = useState([]);
+  const [invernaderos, setInvernaderos] = useState([]);
   const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
 
     getListGreenhouse().then(data => {
-      setGreenhouses(data);
+      setInvernaderos(data);
       setLoading(false);
     }
     );
@@ -43,33 +45,60 @@ function GreenhousePage() {
     event.preventDefault();
     if (itemSearch)
       listByNameGreenhouse(itemSearch).then(data => {
-        setGreenhouses(data);
+        setInvernaderos(data);
 
       }
       );
     else
       getListGreenhouse().then(data => {
-        setGreenhouses(data);
+        setInvernaderos(data);
 
       }
       );
 
   }
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
   const onChange = (event) => {
     if (event.target.name === 'itemSearch')
       setItemSearch(event.target.value)
   }
   
-  const onClickUpdate = (productId) => {
+  const onClickUpdate = (id) => {
+    console.log(id)
     setUpdating(true);
     setOpenModal(true);
-    setGreenhouseIdEdit(productId);
+    setGreenhouseIdEdit(id);
   }
+
+  const onClickDelete = (InvernaderoId) => {
+    deleteGreenhouse(InvernaderoId).then( dataDel =>
+      {
+        getListGreenhouse().then(data => {
+          setInvernaderos(data);
+          setLoading(false);
+        })
+
+      }
+      )
+    
+  }
+  
 
   return (
     <div className="greenhouse-page-container">
       <div className="greenhouse-page">
         <h2>Invernaderos</h2>
+        <div className="button-container" >
+          <form onSubmit={onSubmit}>
+          </form>
+          <button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
+            Nuevo
+          </button>
+        </div>
         <div className="button-container">
           <form onSubmit={onSubmit}>
             <input
@@ -101,24 +130,37 @@ function GreenhousePage() {
               <TableCell align="left">{row.invernadero}</TableCell>           
               <TableCell align="left">{row.sede}</TableCell>           
               <TableCell align="left">
-              <IconButton size="small" aria-label="delete" onClick={() => { onClickUpdate(row.id) }}>
+              <IconButton size="small" aria-label="update" onClick={() => { onClickUpdate(row.id) }}>
                 <EditIcon fontSize="small" color="info" />
-                </IconButton>
+              </IconButton>
+              <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
+                 <DeleteIcon fontSize="small" color="error"/>
+              </IconButton>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-        {!!openModal &&
+        {/* {!!openModal &&
           (
             <Modal>
               {updating ? <GreenhouseUpdate invernaderoId={greenhouseIdEdit} /> : <GreenhouseNew />}
             </Modal>
           )
-        }
+        } */}
+      {!!openModal &&
+              (
+                <Modal>
+                  { updating ? <GreenhouseUpdate invernaderoId={greenhouseIdEdit} /> :<GreenhouseNew open={openModal}/> }
+                </Modal>
+              )
+      }
+
       </div>
-    </div>
+       {/* <GreenhouseNew open={openModal} /> */}
+      </div>
+     
   );
 }
 

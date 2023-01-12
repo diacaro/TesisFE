@@ -14,10 +14,12 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
-const pages = [{name:'invernadero', text:'Invernaderos'}, 
-                {name:'mesa', text:'Mesa'}, 
+const pages = [{name:'customers', text:'Clientes'},                
                 {name:'products', text:'Productos'},
-                {name:'invoice', text:'Factura'}
+                {name:'invernadero', text:'Invernaderos'}, 
+                {name:'category', text:'Categoria'},
+                {name:'mesa', text:'Mesa'}, 
+                {name:'invoice', text:'Despachos'}
               ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

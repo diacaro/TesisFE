@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { findByIdGreenhouse, getListGreenhouse, updateGreenhouse } from '../../Services/greenhouseService'
-import './GreenhouseUpdate.css'
+import { findByIdDesk, getListDesk, getListDeskView, updateDesk } from '../../Services/deskService'
+import { getListGreenhouse } from "../../Services/greenhouseService";
+import './DeskUpdate.css'
 
-function GreenhouseUpdate({ invernaderoId }) {
-    console.log(invernaderoId)
+function DeskUpdate({ mesaId }) {
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
-    const [greenhouse, setGreenhouse] = useState({});
+    const [mesa, setMesa] = useState({mesa: '', idInvernadero :'' });
+    const [invernaderos, setInvernaderos] = useState([]);
   
     const onSubmit = (event) => {
         event.preventDefault();
-        updateGreenhouse(greenhouse).then(data => {
+        updateDesk(mesa).then(data => {
             setClossing(data.name);
             setOpenModal(false);
             setUpdating(false);
@@ -25,19 +26,27 @@ function GreenhouseUpdate({ invernaderoId }) {
     }
 
     const onChange = (event) => {
-        if (event.target.name === 'invernadero')
-        setGreenhouse({ ...greenhouse, invernadero: event.target.value })
+        if (event.target.name === 'mesa')
+        setMesa({ ...mesa, mesa: event.target.value })
+        if (event.target.name === 'idInvernadero')
+        setMesa({ ...mesa, idInvernadero: event.target.value })
     }
 
     useEffect(() => {
-        findByIdGreenhouse(invernaderoId).then(data =>
-            setGreenhouse(data)
+        findByIdDesk(mesaId).then(data =>
+            setMesa(data)
         );
-    }, [invernaderoId]);
+    }, [mesaId]);
 
     useEffect(() => {
         getListGreenhouse().then(data =>
-            setGreenhouse(data)
+            setInvernaderos(data)
+        );
+    }, []);
+
+    useEffect(() => {
+        getListDesk().then(data =>
+            setMesa(data)
         );
     }, []);
 
@@ -45,17 +54,17 @@ function GreenhouseUpdate({ invernaderoId }) {
         <div className="update">
             <div className="update-form-container">                
                 <div className="modal__tittle">
-            <h1 className="title">Editar invernadero</h1>
+            <h1 className="title">Editar Mesa</h1>
                 {closssing && <p>Actualizando... {closssing}</p>}
             <button className="modal__button__close" onClick={onClickClose}>x</button>
           </div>
                 <form onSubmit={onSubmit}>
                     <div className="update-form-row">
                         <label className="update-label">
-                            Invernadero
+                            Mesa
                             <input
-                                name="invernadero"
-                                value={greenhouse.invernadero}
+                                name="mesa"
+                                value={mesa.mesa}
                                 onChange={onChange}
                                 className="update-input"
                             />
@@ -63,15 +72,18 @@ function GreenhouseUpdate({ invernaderoId }) {
     
                     </div>
                     <div className="update-form-row">
-                        <label className="update-label">
-                            Sede
-                            <input
-                                name="sede"
-                                value={greenhouse.sede}
-                                onChange={onChange}
-                                className="update-input"
-                            />
-                        </label>
+                    <select
+                            className="modal__select"
+                            name="idInvernadero"
+                            onChange={onChange}
+                            value={mesa.idInvernadero}                        >
+                            <option>Invernadero---</option>
+                            {
+                                invernaderos.map(item =>
+                                    <option key={item.id} value={item.id}>{item.invernadero}</option>
+                                )
+                            }
+                        </select>
 
                     </div>
 
@@ -82,4 +94,4 @@ function GreenhouseUpdate({ invernaderoId }) {
     );
 }
 
-export default GreenhouseUpdate
+export default DeskUpdate

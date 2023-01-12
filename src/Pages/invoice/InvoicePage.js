@@ -34,7 +34,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 import './InvoicePage.css'
 
-function InvoicePage({ greenhouse }) {
+function InvoicePage({ customer }) {
   const navigate = useNavigate();
   const { invoiceNew, setInvoiceNew, invoiceIdNew, setInvoiceIdNew } = React.useContext(InvoiceContext);
 
@@ -44,13 +44,13 @@ function InvoicePage({ greenhouse }) {
 
   useEffect(() => {
 
-    if (!!greenhouse.id)
-      listInvoiceByGreenhouseId(greenhouse.id).then(data => {
+    if (!!customer.id)
+      listInvoiceByGreenhouseId(customer.id).then(data => {
         setInvoices(data);
         setLoading(false)
       }
       );
-  }, [greenhouse.id])
+  }, [customer.id])
 
   const onChange = (event) => {
     if (event.target.name === 'itemSearch')
@@ -60,7 +60,7 @@ function InvoicePage({ greenhouse }) {
     if (!invoiceId) {
       createInvoice(
         {
-          greenhouseId: greenhouse.id,
+          customerId: customer.id,
           createAt: new Date()
         }
       ).then(data => {
@@ -75,8 +75,8 @@ function InvoicePage({ greenhouse }) {
   }
 
   return (
-    <div className="greenhouse-page-container">
-      <div className="greenhouse-page">
+    <div className="customer-page-container">
+      <div className="customer-page">
         <Grid item xs>
           <Typography gutterBottom variant="h5" component="div">
             Facturas
@@ -87,9 +87,9 @@ function InvoicePage({ greenhouse }) {
             Cliente:
           </Typography>
           {
-            !!greenhouse.fullname && (
+            !!customer.fullname && (
               <div className="newInvoice">
-                <Chip color="secondary" avatar={<Avatar color="secondary">{greenhouse.fullname.substring(0, 1)} </Avatar>} label={greenhouse.fullname} />
+                <Chip color="secondary" avatar={<Avatar color="secondary">{customer.fullname.substring(0, 1)} </Avatar>} label={customer.fullname} />
                 <Button className="newInvoice__button" variant="outlined" onClick={() => onClickNew('')}> Nueva Factura</Button>
               </div>
             )

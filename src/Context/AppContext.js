@@ -3,6 +3,7 @@ const AppContext = React.createContext();
 
 function AppProvider (props) {
     const [ openModal , setOpenModal ]=useState(false);
+    const [ customerIdEdit , setCustomerIdEdit ]=useState(null);
     const [ greenhouseIdEdit , setGreenhouseIdEdit ]=useState(null);
     const [ productIdEdit , setProductIdEdit ]=useState(null);
     const [ deskIdEdit , setDeskIdEdit ]=useState(null);
@@ -11,24 +12,29 @@ function AppProvider (props) {
     const [ userIdEdit , setUserIdEdit ]=useState(null);
     const [ updating, setUpdating ] = useState(false);
     const [ contractId, setContractId ] = useState(false);
+    const [ customerNewContract, setCustomerNewContract ] = useState(false);  
     const [ GreenhouseNewContract, setGreenhouseNewContract ] = useState(false);    
     const [greenhouseId, setGreenhouseId] = useState('');
+    const [customerId, setCustomerId] = useState('');
     const [role, setRole] = useState('');
     const [token, setToken] = useState('');
 
     return(
         <AppContext.Provider value = {{
             openModal,setOpenModal,
+            customerIdEdit,setCustomerIdEdit,
             greenhouseIdEdit,setGreenhouseIdEdit,
             productIdEdit , setProductIdEdit,
             updating, setUpdating,
             contractId, setContractId,
             GreenhouseNewContract, setGreenhouseNewContract,
+            customerNewContract, setCustomerNewContract,
             userIdEdit , setUserIdEdit,
             deskIdEdit , setDeskIdEdit,
             providerIdEdit , setProviderIdEdit,
             expenseIdEdit , setExpenseIdEdit,
             greenhouseId, setGreenhouseId,
+            customerId, setCustomerId,
             role, setRole,
             token, setToken,
 

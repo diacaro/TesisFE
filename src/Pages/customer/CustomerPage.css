@@ -1,0 +1,50 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --very-light-pink: #383838;
+    --text-input-field: #dfdede;
+    --hospital-green: #0077DC;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+  }
+.customer-page-container{
+    display: flex;
+    justify-content: center;
+}
+
+.customer-page{  
+    margin-top: 24px;
+    padding: 20px;
+    width: 70vw;  
+    background-color: #eeeeee; 
+    
+}
+.button-container{   
+    display: flex;
+    justify-content:flex-end;    
+    gap: 8px;
+}
+.button-container input{
+    
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    height: 20px;
+    font-size: var(--md);
+    padding: 6px;
+    margin: 5px 5px;
+    
+}
+
+.button-new-customer {
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid;
+    border-color: var(--hospital-green);    
+    width: 110px;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 40px;
+  }

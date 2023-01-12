@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import DeskList from './DeskList.js';
-import Desk from './Desk'
-import { getListDeskView, deleteDesk } from '../../Services/deskService'
-import DeskNew from "./DeskNew";
-import DeskUpdate from "./DeskUpdate";
-
+import CategoryList from './CategoryList.js';
+import Category from './Category'
+import { getListCategory, deleteCategory } from '../../Services/categoryService'
+import CategoryNew from "./CategoryNew.js";
 
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
-import './DeskPage.css'
+import './CategoryPage.css'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,16 +30,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function DeskPage () {
+function CategoryPage() {
 
   const { openModal, setOpenModal, deskIdEdit, updating, setDeskIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
-  const [mesa, setMesa] = useState([]);
+  const [categoria, setCategoria] = useState([]);
 
   useEffect(() => {
-    getListDeskView().then(data => {
-      setMesa(data);
+    getListCategory().then(data => {
+      setCategoria(data);
       setLoading(false);
     }
     );
@@ -55,28 +53,23 @@ function DeskPage () {
     event.preventDefault();
   }
 
-  const onClickUpdate = (Id) => {
-    setUpdating(true);
-    setOpenModal(true);
-    setDeskIdEdit(Id);
-  }
-
-  const onClickDelete = (deskId) => {
-    deleteDesk(deskId).then( dataDel =>
+  const onClickDelete = (categoriaId) => {
+    deleteCategory(categoriaId).then( dataDel =>
       {
-        getListDeskView().then(data => {
-          setMesa(data);
+        getListCategory().then(data => {
+          setCategoria(data);
           setLoading(false);
         })
 
       }
       )
-    }
+    
+  }
 
   return (
     <div className="table-page-container">
       <div className="table-page">
-        <h2>Mesa</h2>
+        <h2>Categorias</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>
           </form>
@@ -91,22 +84,15 @@ function DeskPage () {
           <Table sx={{ minWidth: 450 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Mesa</TableCell>
-                <TableCell align="left">Invernadero</TableCell>
+                <TableCell>Categoria</TableCell>
                 <TableCell align="left"><ListIcon /></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {mesa.map((row) => (
-                <TableRow key={row.id} 
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  
-                  <TableCell align="left">{row.mesa}</TableCell>
-                  <TableCell align="left">{row.invernadero}</TableCell>
+              {categoria.map((row) => (
+                <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell align="left">{row.categoria}</TableCell>
                   <TableCell align="left" >
-                    <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
-                      <EditIcon fontSize="small"  color="info"/>
-                    </IconButton>
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error" />
                     </IconButton>
@@ -117,20 +103,10 @@ function DeskPage () {
             </TableBody>
           </Table>
         </TableContainer>
-
-        {!!openModal &&
-                (
-                  <Modal>
-                    { updating ? <DeskUpdate mesaId={deskIdEdit} /> :<DeskNew open={openModal}/> }
-                  </Modal>
-                )
-        }
-      
       </div>
-       {/* <DeskNew open={openModal}  /> */}
-       
+      <CategoryNew open={openModal} />
     </div>
   );
-
 }
-export default DeskPage ;
+
+export default CategoryPage;
