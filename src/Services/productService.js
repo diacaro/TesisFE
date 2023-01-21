@@ -121,6 +121,6 @@ export {
     getProductById,
     deleteProduct,
     // getProductByCode
-    getListProductView
+    getListProductView,
 
 }

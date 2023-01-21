@@ -6,12 +6,12 @@ import './CustomerUpdate.css'
 function CustomerUpdate({ customerId }) {
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
-    const [customer, setCustomer] = useState({});
+    const [customer, setCustomer] = useState({fullname: '', phone: '', address: ''});
   
     const onSubmit = (event) => {
         event.preventDefault();
         updateCustomer(customer).then(data => {
-            setClossing(data.name);
+            setClossing(data.fullname);
             setOpenModal(false);
             setUpdating(false);
         }
@@ -23,11 +23,20 @@ function CustomerUpdate({ customerId }) {
         setUpdating(false);
     }
 
+    // const onChange = (event) => {
+    //     setCustomer({
+    //         ...customer,
+    //         [event.target.name]: event.target.value
+    //     })
+    // }
+
     const onChange = (event) => {
-        setCustomer({
-            ...customer,
-            [event.target.name]: event.target.value
-        })
+        if (event.target.name === 'fullname')
+        setCustomer({ ...customer, fullname: event.target.value })
+        if (event.target.name === 'phone')
+        setCustomer({ ...customer, phone: event.target.value })
+        if (event.target.name === 'address')
+        setCustomer({ ...customer, address: event.target.value })
     }
 
     useEffect(() => {
@@ -59,10 +68,10 @@ function CustomerUpdate({ customerId }) {
                     </div>
                     <div className="update-form-row">
                         <label className="update-label">
-                            Cedula
+                            Telefono
                             <input
-                                name="nui"
-                                value={customer.nui}
+                                name="phone"
+                                value={customer.phone}
                                 onChange={onChange}
                                 className="update-input"
                             />

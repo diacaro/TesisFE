@@ -19,7 +19,8 @@ const pages = [{name:'customers', text:'Clientes'},
                 {name:'invernadero', text:'Invernaderos'}, 
                 {name:'category', text:'Categoria'},
                 {name:'mesa', text:'Mesa'}, 
-                {name:'invoice', text:'Despachos'}
+                {name:'orden', text:'Ordenes'},
+                {name:'detalles', text:'Despachos'}
               ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

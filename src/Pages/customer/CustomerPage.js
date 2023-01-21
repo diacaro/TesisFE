@@ -48,18 +48,18 @@ function CustomerPage() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (itemSearch)
-      listByNameCustomer(itemSearch).then(data => {
-        setCustomers(data);
+    // if (itemSearch)
+    //   listByNameCustomer(itemSearch).then(data => {
+    //     setCustomers(data);
 
-      }
-      );
-    else
-      getListCustomer().then(data => {
-        setCustomers(data);
+    //   }
+    //   );
+    // else
+    //   getListCustomer().then(data => {
+    //     setCustomers(data);
 
-      }
-      );
+    //   }
+    //   );
 
   }
   const onChange = (event) => {
@@ -143,7 +143,7 @@ function CustomerPage() {
         {!!openModal &&
           (
             <Modal>
-              {updating ? <CustomerUpdate clientesId={customerIdEdit} /> : <CustomerNew open={openModal} />}
+              {updating ? <CustomerUpdate Idclientes={customerIdEdit} /> : <CustomerNew open={openModal} />}
             </Modal>
           )
         }

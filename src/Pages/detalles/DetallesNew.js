@@ -5,7 +5,7 @@ import { getListDesk } from "../../Services/deskService";
 import { getListGreenhouse } from "../../Services/greenhouseService";
 import { getListCategory } from "../../Services/categoryService";
 import { InvoiceContext } from "../invoice/InvoiceContext";
-import styles from "./ProductNew.module.css";
+import styles from "./DetallesNew.module.css";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -27,15 +27,10 @@ function ProductNew() {
   const { setOpenModal, setUpdating } = React.useContext(AppContext);
   // const [nombre, setProduct] = useState('');
   const [mesa, setDesk] = useState([]);
-  const [categoria, setCategoria] = useState([]);
   const [Greenhouse, setGreenhouse] = useState([]);
-  const [idCategoria, setIdCategoria] = useState("");
   const [idMesa, setIdMesa] = useState("");
   const [nombre, setNombre] = useState("");
-  const [clima, setClima] = useState("");
-  const [precio, setPrecio] = useState("");
   const [idInvernadero, setIdInvernadero] = useState("");
-  const [sede, setSede] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [error, setError] = useState(false);
 
@@ -52,13 +47,10 @@ function ProductNew() {
     }
     createProduct({
       nombre,
-      clima,
-      precio,
-      idCategoria,
       idMesa,
       idInvernadero,
-      sede,
       cantidad
+      
     }).then((data) => {
       if (data.status === 200) {
         // setRefreshProducts(true);
@@ -81,11 +73,7 @@ function ProductNew() {
     getListGreenhouse().then((data) => 
     setGreenhouse(data));
   
-    getListCategory().then((data) => 
-    setCategoria(data));
   }, []);
-
-
 
 
   const handleClose = () => {
@@ -98,12 +86,8 @@ function ProductNew() {
 
   const onChange = (event) => {
     if (event.target.name === "nombre") setNombre(event.target.value);
-    if (event.target.name === "clima") setClima(event.target.value);
-    if (event.target.name === "precio") setPrecio(event.target.value);
-    if (event.target.name === "idCategoria") setIdCategoria(event.target.value);
     if (event.target.name === "idMesa") setIdMesa(event.target.value);
     if (event.target.name === "idInvernadero") setIdInvernadero(event.target.value);
-    if (event.target.name === "sede") setSede(event.target.value);
     if (event.target.name === "cantidad") setCantidad(event.target.value);
   };
 
@@ -124,62 +108,6 @@ function ProductNew() {
             value={nombre}
             onChange={onChange}
           />
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Clima"
-            variant="outlined"
-            name="clima"
-            value={clima}
-            onChange={onChange}
-          />
-
-          {/* <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Clima</InputLabel>
-            <Select
-              size="small"
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={clima}
-              name="clima"
-              label="Clima"
-              onChange={handleChange}
-            >
-              <option value="caliente">Caliente</option>
-              <option value="intermedio">Intermedio</option>
-              <option value="frio">Frio</option>
-            
-            </Select>
-          </FormControl> */}
-
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Precio"
-            variant="outlined"
-            name="precio"
-            value={precio}
-            onChange={onChange}
-          />
-
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
-            <Select
-              size="small"
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={idCategoria}
-              name="idCategoria"
-              label="categoryId"
-              onChange={onChange}
-            >
-              {categoria.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.categoria}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Mesa</InputLabel>
@@ -218,16 +146,6 @@ function ProductNew() {
               ))}
             </Select>
           </FormControl>
-
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Sede"
-            variant="outlined"
-            name="sede"
-            value={sede}
-            onChange={onChange}
-          />
 
           <TextField
             size="small"

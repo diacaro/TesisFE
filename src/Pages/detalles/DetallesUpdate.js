@@ -3,16 +3,16 @@ import { AppContext } from "../../Context/AppContext";
 import { findByIdProduct, updateProduct } from '../../Services/productService'
 import { getListDesk, getListDeskInvernadero } from '../../Services/deskService'
 import { getListGreenhouse } from '../../Services/greenhouseService'
-import './ProductUpdate.css'
+import './DetallesUpdate.css'
 import { getListCategory } from "../../Services/categoryService";
 import { FormControl, InputLabel, Select } from "@mui/material";
 
 function ProductUpdate({ productId }) {
     const [category, setCategory] = useState([]);
     const [mesa, setDesk] = useState([]);
-    const [invernaderos, setInvernaderos] = useState([]);
+    const [invernadero, setGreenhouse] = useState([]);
     const [closssing, setClossing] = useState('')
-    const [idInvernadero, setIdInvernadero] = useState('')
+    const [idInvernadero, setIdInvernadero] = useState("")
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
     const [product, setProduct] = useState({ nombre: '', clima: '', precio: '',  sede: '', cantidad: '', idCategoria: '', idMesa: '' });
 
@@ -71,7 +71,7 @@ function ProductUpdate({ productId }) {
 
     useEffect(() => {
         getListGreenhouse().then(data =>
-            setInvernaderos(data)
+            setGreenhouse(data)
         );
     }, []);
     useEffect(() => {
@@ -166,7 +166,7 @@ function ProductUpdate({ productId }) {
                             value={idInvernadero}                        >
                             <option>Invernadero</option>
                             {
-                                invernaderos.map(item =>
+                                invernadero.map(item =>
                                     <option key={item.id} value={item.id}>{item.invernadero}</option>
                                 )
                             }

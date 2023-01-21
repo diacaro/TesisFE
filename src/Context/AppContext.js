@@ -16,6 +16,7 @@ function AppProvider (props) {
     const [ GreenhouseNewContract, setGreenhouseNewContract ] = useState(false);    
     const [greenhouseId, setGreenhouseId] = useState('');
     const [customerId, setCustomerId] = useState('');
+    const [ordenId, setOrdenId] = useState('');
     const [role, setRole] = useState('');
     const [token, setToken] = useState('');
 
@@ -35,6 +36,7 @@ function AppProvider (props) {
             expenseIdEdit , setExpenseIdEdit,
             greenhouseId, setGreenhouseId,
             customerId, setCustomerId,
+            ordenId, setOrdenId,
             role, setRole,
             token, setToken,
 

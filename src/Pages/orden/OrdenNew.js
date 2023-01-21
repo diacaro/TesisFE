@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { getListGreenhouse } from "../../Services/greenhouseService";
-import { createDesk } from "../../Services/deskService";
-import "./DeskNew.css";
+import { getListCustomer } from "../../Services/customerService";
+import "./OrdenNew.css";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,8 +11,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { createOrden,getListOrden } from "../../Services/OrdenService";
 
-function DeskNew({ open }) {
+function CustomerNew({ open }) {
   //const { setOpenModal, setUpdating } = React.useContext(AppContext);
   const {
     openModal,
@@ -23,20 +23,26 @@ function DeskNew({ open }) {
     setDeskIdEdit,
     setUpdating,
   } = React.useContext(AppContext);
-  const [mesa, setDesk] = useState("");
+  const [createAt, setCreateAt] = useState([]);
   const [error, setError] = useState(false);
-  const [invernadero, setGreenhouse] = useState([]);
-  const [idInvernadero, setGreenhouseId] = useState('');
+  const [clientes, setClientes] = useState([]);
+  const [orden, setOrden] = useState([]);
+  const [idClientes, setIdClientes] = useState("");
   
   const onClickSave = () => {
-    if (!idInvernadero) {
+    if (!idClientes) {
       setError(true);
-    } else {
-      createDesk({
-        mesa,
-        idInvernadero,
-        
 
+    } else {
+      console.log({
+        createAt,
+        idClientes,
+        
+      })
+      createOrden({
+        createAt,
+        idClientes,
+        
       }).then((data) => {
         setOpenModal(false);
         setUpdating(false);
@@ -45,8 +51,8 @@ function DeskNew({ open }) {
   };
   
   useEffect(() => {
-    getListGreenhouse().then(data =>
-      setGreenhouse(data));
+    getListCustomer().then(data =>
+      setClientes(data));
   }, []);
 
   const onClickClose = () => {
@@ -54,46 +60,46 @@ function DeskNew({ open }) {
     setUpdating(false);
   };
 
-  const onChange = (event) => {
-    if (event.target.name === "mesa") setDesk(event.target.value);
-    if (event.target.name === 'idInvernadero')setGreenhouseId(event.target.value)
-  };
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const onChange = (event) => {
+    if (event.target.name === "createAt") setCreateAt(event.target.value);
+    if (event.target.name === "idClientes")setIdClientes(event.target.value);
   };
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Nueva Mesa </DialogTitle>
+        <DialogTitle>Nueva Orden </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Ingrese los datos de la nueva Mesa
+            Ingrese la orden
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="mesa"
-            label="Mesa"
-            type="text"
-            name="mesa"
+            id="createAt"
+            // label="Fecha"
+            type="date"
+            name="createAt"
             fullWidth
             onChange={onChange}
             variant="standard"
           />
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Invernadero</InputLabel>
+            <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
             <Select
               size="small"
               labelId="demo-simple-select-label"
-              id="id_invernadero"
-              value={idInvernadero}
-              name="idInvernadero"
-              label="idInvernadero"
+              id="demo-simple-select"
+              value={idClientes}
+              name="idClientes"
+              label="idClientes"
               onChange={onChange}
             >
-              {invernadero.map((item) => (
-                <MenuItem key={item.id} value={item.id}> {item.invernadero}
+              {clientes.map((item) => (
+                <MenuItem key={item.id} value={item.id}> {item.fullname}
                 </MenuItem>
               ))}
             </Select>
@@ -109,4 +115,4 @@ function DeskNew({ open }) {
   );
 }
 
-export default DeskNew;
+export default CustomerNew;

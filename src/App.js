@@ -8,7 +8,9 @@ import DeskPage from "./Pages/desk/DeskPage";
 import InvoiceNew from "./Pages/invoice/InvoiceNew";
 import InvoiceUpdate from "./Pages/invoice/InvoiceUpdate";
 import {InvoiceProvider} from './Pages/invoice/InvoiceContext'
-import CategoryPage from "./Pages/category/CategoryPage";
+import CategoryPage from "./Pages/category/CategoryPage"; 
+import DetallesPage from "./Pages/detalles/DetallesPage"; 
+import OrdenPage from "./Pages/orden/OrdenPage";
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
       <Route path="/category" element={<CategoryPage />} />
       <Route path="/mesa" element={<DeskPage />} />
       <Route path="/customers" element={<CustomerPage />} />
-      <Route path="/invoiceNew" element={<InvoiceNew />} />
+      <Route path="/detalles" element={<DetallesPage />} />
+      <Route path="/orden" element={<OrdenPage />} />
       <Route path="/invoiceUpdate/:id" element={<InvoiceUpdate />} />
       
     </Routes>

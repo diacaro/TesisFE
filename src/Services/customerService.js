@@ -2,6 +2,8 @@
 import API from '../consts/url'
 import getHeadersAndToken from '../consts/headersToken'
 
+const model ='clientes'
+
 
 const getListCustomer = async () => {
     const response = await fetch(`${API}/clientes`,{
@@ -24,7 +26,7 @@ const createCustomer = async (clientes) => {
 }
 
 const findByIdCustomer = async (clientesId) => {
-    const response = await fetch(`${API}/clientes/${clientesId}`,{
+    const response = await fetch(`${API}/${model}/${clientesId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -41,16 +43,16 @@ const listByNameCustomer = async (itemSearch) => {
     const data = await response.json();     
     return  data;
 }
-const listByNuiCustomer = async (itemSearch) => {
+// const listByNuiCustomer = async (itemSearch) => {
   
-    const response = await fetch(`${API}/clientes/search/${itemSearch}/nui`,{
-        method: 'GET',        
-        headers: getHeadersAndToken()
-    });  
-    const data = await response.json();     
+//     const response = await fetch(`${API}/clientes/search/${itemSearch}/nui`,{
+//         method: 'GET',        
+//         headers: getHeadersAndToken()
+//     });  
+//     const data = await response.json();     
     
-    return  data;
-}
+//     return  data;
+// }
 
 
 const updateCustomer = async (clientes) => {
@@ -77,7 +79,7 @@ export {
     findByIdCustomer,
     updateCustomer,
     listByNameCustomer,
-    listByNuiCustomer,
+    // listByNuiCustomer,
     deleteCustomer
     
 }
