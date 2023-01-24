@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {getListDetallesView, getListDetalles, listByCodeDetalles,deleteDetalles,createDetalles,getListDetallesProductos} from "../../Services/detallesService";
+import {getListDetallesView, getListDetalles, listByCodeDetalles,deleteDetalles,createDetalles,getDetalleByOrden} from "../../Services/detallesService";
 import { getListProduct } from "../../Services/productService";
 import DetallesNew from "./DetallesNew.js";
 import DetallesUpdate from "./DetallesUpdate";
@@ -37,9 +37,10 @@ function DetallesPage() {
   const [loading, setLoading] = useState(true);
   const [detalles, setDetalles] = useState([]);
   const [itemSearch, setItemSearch] = useState("");
-  const [mesa, setMesa] = useState([]);
+  const [search, setSearch] = useState('');
   const [Greenhouse, setGreenhouse] = useState([]);
   const [idMesa, setIdMesa] = useState("");
+  const [idOrden, setIdOrden] = useState("");
   const [nombre, setNombre] = useState([]);
   const [products, setProducts] = useState([]);
   const [idProduct, setIdProduct] = useState("");
@@ -60,12 +61,8 @@ function DetallesPage() {
     setItemSearch(event.target.value)
     if (event.target.name === "cantidad") 
     setCantidad(event.target.value);
-    if (event.target.name === "nombre") 
-    setNombre(event.target.value);
-    if (event.target.name === "idMesa") 
-    setIdMesa(event.target.value);
-    if (event.target.name === "idInvernadero") 
-    setIdInvernadero(event.target.value);
+    if (event.target.name === 'search')
+    setSearch(event.target.value);
   }
 
 
@@ -84,6 +81,13 @@ function DetallesPage() {
     });
   };
 
+  // useEffect(() => {
+  //   if (idOrden)
+  //   getDetalleByOrden(9).then((data) => 
+  //   setDetalles(data));
+
+  // }, [idOrden]);
+
   // const onSubmit = (event) => {
   //   event.preventDefault();
 
@@ -98,21 +102,21 @@ function DetallesPage() {
     setSaving(true);
     setError(false);
     // setRefreshProducts(false);
-    if (!idProduct) {
+    if (!search) {
       setError(true);
       return;
     }
+    console.log(search);
     createDetalles({
-      nombre,
-      idMesa,
-      idInvernadero,
+      idOrden: 9,
+      idProductos: search,
       cantidad
 
     }).then((data) => {
+      console.log(data);
       if (data.status === 200) {
-        setNombre('');
-        setIdMesa('');
-        setIdInvernadero('');
+        getDetalleByOrden(9).then((dataDetalles) => 
+        setDetalles(dataDetalles));
         setCantidad('')
       } else {
         setError(true);
@@ -128,22 +132,28 @@ function DetallesPage() {
         <h2>Detalles</h2>
         <form onSubmit={onSubmit}>
         <div className="combobox-container" >
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            name="idProduct"
-            onChange={(event, option) => setItemSearch( option.id)}
-
-            // getOptionLabel={(option) => option.nombre + ' ' + option.idMesa+ ' ' + option.idInvernadero}
-            options={products.map((product) => product.nombre)}
-            sx={{ width: 350 }}
-            // renderOption={(props, option) => (
-            //   <Box component="li"  {...props}>
-            //     {option.nombre} 
-            //   </Box>
-            // )}
-            renderInput={(params) => <TextField {...params} label="Seleccionar Productos"  />}
-            
+        <Autocomplete
+              id="code-select"
+              size="small"
+              options={products}
+              onChange={(event, option) => setSearch(option.id)}
+              autoHighlight
+              getOptionLabel={(option) => option.nombre + ' ' + option.nombre}
+              renderOption={(props, option) => (
+                <Box component="li"  {...props}>
+                  {option.nombre} {option.nombre}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Código de color"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: 'new-password', // disable autocomplete and autofill
+                  }}
+                />
+              )}
             />
              <TextField
             size="small"
@@ -162,7 +172,7 @@ function DetallesPage() {
         </form>
 
         <div className="button-container">
-          <form onSubmit={onSubmit}>
+          {/* <form onSubmit={onSubmit}>
             <input
               name="itemSearch"
               placeholder="Buscar"
@@ -173,63 +183,41 @@ function DetallesPage() {
               {" "}
               Buscar{" "}
             </button>
-          </form>
+          </form> */}
         </div>
         <dir />
         <dir />
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 450 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell align="left">Mesa</TableCell>
-                <TableCell align="left">Invernadero</TableCell>
-                <TableCell align="left">Cantidad</TableCell>
-                <TableCell align="left">
-                  <ListIcon />
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-
-              {detalles.map((row) => {
-
+            <Table sx={{ minWidth: 650 }} size="small" >
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Nombre.</TableCell>
+                  <TableCell align="left">Mesa.</TableCell>
+                  <TableCell align="left">Invernadero</TableCell>
+                  <TableCell align="left">Cantidad</TableCell>
+                  <TableCell align="left">::</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {detalles.map((row) => (
                   <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell padding="checkbox">
-
-                    </TableCell>
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
                     <TableCell align="left">{row.nombre}</TableCell>
                     <TableCell align="left">{row.mesa}</TableCell>
                     <TableCell align="left">{row.invernadero}</TableCell>
                     <TableCell align="left">{row.cantidad}</TableCell>
                     <TableCell align="left">
-                      <IconButton
-                        size="small"
-                        aria-label="edit"
-                        onClick={() => {
-                        onClickUpdate(row.id);
-                        }}
-                      >
-                        <EditIcon fontSize="small" color="info" />
-                      </IconButton>
-
-                      <IconButton
-                        size="small"
-                        aria-label="delete"
-                        onClick={() => {
-                          onClickDelete(row.id);
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" color="error" />
+                      <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
+                        <DeleteIcon fontSize="small" />
                       </IconButton>
                     </TableCell>
                   </TableRow>
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
         {!!openModal && (
           <Modal>

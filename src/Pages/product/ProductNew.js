@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { createProduct } from "../../Services/productService";
-import { getListDesk } from "../../Services/deskService";
+import { getListDesk, getListDeskInvernadero  } from "../../Services/deskService";
 import { getListGreenhouse } from "../../Services/greenhouseService";
 import { getListCategory } from "../../Services/categoryService";
 import { InvoiceContext } from "../invoice/InvoiceContext";
@@ -75,8 +75,13 @@ function ProductNew() {
   };
 
   useEffect(() => {
-    getListDesk().then((data) => 
+    if (idInvernadero)
+    getListDeskInvernadero(idInvernadero).then((data) => 
     setDesk(data));
+
+  }, [idInvernadero]);
+
+  useEffect(() => {
 
     getListGreenhouse().then((data) => 
     setGreenhouse(data));

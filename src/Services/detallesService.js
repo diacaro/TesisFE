@@ -33,15 +33,15 @@ const getDetallesById = async (detallesId) => {
     return  data;
 }
 
-// const getDetallesByCode = async (code) => {
-//     const response = await fetch(`${API}/${model}/${code}/code`,{
-//         method: 'GET',        
-//         headers: getHeadersAndToken()
-//     });    
-//     const data = await response.json();
+const getDetalleByOrden = async (idOrden) => {
+    const response = await fetch(`${API}/${model}/${idOrden}/orden`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
 
-//     return  data;
-// }
+    return  data;
+}
 
 const getListDetallesOrden= async () => {
     // const response = await fetch(`${API}/${model}/with/mesa`,{
@@ -62,14 +62,6 @@ const getListDetallesProductos= async () => {
     return  data;
 }
 
-// const listByCodeDetalles = async (itemSearch) => {  
-//     // const resp = await fetch(`${API}/${model}/search/${itemSearch}/code`,{
-//     const resp = await fetch(`${API}/${model}/search/${itemSearch}/code`,{
-//     method: 'GET',        
-//         headers: getHeadersAndToken()
-//     });  
-//     return {status: resp.status, body: await resp.json()}
-// }
 
 const createDetalles = async (detalles) => {
     const resp = await fetch(`${API}/detalle`, {
@@ -131,6 +123,7 @@ export {
     deleteDetalles,
     // getDetallesByCode
     getListDetallesProductos,
-    getListDetallesView
+    getListDetallesView,
+    getDetalleByOrden
 
 }

@@ -9,7 +9,7 @@ import { FormControl, InputLabel, Select } from "@mui/material";
 
 function ProductUpdate({ productId }) {
     const [category, setCategory] = useState([]);
-    const [mesa, setDesk] = useState([]);
+    const [mesa, setMesa] = useState([]);
     const [invernaderos, setInvernaderos] = useState([]);
     const [closssing, setClossing] = useState('')
     const [idInvernadero, setIdInvernadero] = useState('')
@@ -59,15 +59,16 @@ function ProductUpdate({ productId }) {
 
     useEffect(() => {
         getListDesk().then(data =>
-            setDesk(data)
+            setMesa(data)
         );
     }, []);
 
     useEffect(() => {
-        getListDeskInvernadero(idInvernadero).then(data =>
-            setDesk(data)
-        );
-    }, [idInvernadero]);
+        if (idInvernadero)
+        getListDeskInvernadero(idInvernadero).then((data) => 
+        setMesa(data));
+    
+      }, [idInvernadero]);
 
     useEffect(() => {
         getListGreenhouse().then(data =>
@@ -130,7 +131,7 @@ function ProductUpdate({ productId }) {
                             name="idCategoria"
                             onChange={onChange}
                             value={product.idCategoria}                        >
-                            <option>Categoria---</option>
+                            <option>Categoria</option>
                             {
                                 category.map(item =>
                                     <option key={item.id} value={item.id}>{item.categoria}</option>
@@ -147,7 +148,7 @@ function ProductUpdate({ productId }) {
                             name="idMesa"
                             onChange={onChange}
                             value={product.idMesa}                        >
-                            <option>Mesa---</option>
+                            <option>Mesa</option>
                             {
                                 mesa.map(item =>
                                     <option key={item.id} value={item.id}>{item.mesa}</option>
