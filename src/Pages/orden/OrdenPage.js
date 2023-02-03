@@ -5,6 +5,7 @@ import { getListOrdenView, deleteOrden,getListOrden } from '../../Services/Orden
 import OrdenNew from "./OrdenNew";
 import OrdenUpdate from "./OrdenUpdate";
 import { setFormatDate } from "../../utils/DateFormat";
+import { useNavigate } from "react-router-dom";
 
 
 import { AppContext } from "../../Context/AppContext";
@@ -39,6 +40,11 @@ function OrdenPage () {
 
   const [loading, setLoading] = useState(true);
   const [orden, setOrden] = useState([]);
+  const [search, setSearch] = useState('');
+  const [error, setError] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [createAt, setCreateAt] = useState([]);
+  const navigate = useNavigate ()
 
   useEffect(() => {
     getListOrdenView().then(data => {
@@ -56,11 +62,12 @@ function OrdenPage () {
     event.preventDefault();
   }
 
-  const onClickUpdate = (Id) => {
-    setUpdating(true);
-    setOpenModal(true);
-    setDeskIdEdit(Id);
-  }
+  const onClickUpdate = (id) => {
+    navigate("/detalles/"+ id)
+
+  };
+
+
 
   const onClickDelete = (ordenId) => {
     deleteOrden(ordenId).then( dataDel =>

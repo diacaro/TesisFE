@@ -26,6 +26,7 @@ function App() {
       <Route path="/mesa" element={<DeskPage />} />
       <Route path="/customers" element={<CustomerPage />} />
       <Route path="/detalles" element={<DetallesPage />} />
+      <Route path="/detalles/:id" element={<DetallesPage />} />
       <Route path="/orden" element={<OrdenPage />} />
       <Route path="/invoiceUpdate/:id" element={<InvoiceUpdate />} />
       

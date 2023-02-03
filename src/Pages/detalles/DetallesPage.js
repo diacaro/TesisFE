@@ -3,6 +3,7 @@ import {getListDetallesView, getListDetalles, listByCodeDetalles,deleteDetalles,
 import { getListProduct } from "../../Services/productService";
 import DetallesNew from "./DetallesNew.js";
 import DetallesUpdate from "./DetallesUpdate";
+import { useParams } from "react-router-dom";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -48,6 +49,7 @@ function DetallesPage() {
   const [cantidad, setCantidad] = useState([]);
   const [error, setError] = useState(false);
   const [saving, setSaving] = useState(false);
+  const params = useParams ()
 
 
   useEffect(() => {
@@ -74,19 +76,17 @@ function DetallesPage() {
   };
   const onClickDelete = (detallesId) => {
     deleteDetalles(detallesId).then((dataDel) => {
-      getListDetalles().then((data) => {
-        setDetalles(data);
-        setLoading(false);
-      });
+      getDetalleByOrden(params.id).then((data) => 
+      setDetalles(data));
     });
   };
 
-  // useEffect(() => {
-  //   if (idOrden)
-  //   getDetalleByOrden(9).then((data) => 
-  //   setDetalles(data));
+  useEffect(() => {
+    
+    getDetalleByOrden(params.id).then((data) => 
+    setDetalles(data));
 
-  // }, [idOrden]);
+  }, []);
 
   // const onSubmit = (event) => {
   //   event.preventDefault();
@@ -108,14 +108,14 @@ function DetallesPage() {
     }
     console.log(search);
     createDetalles({
-      idOrden: 9,
+      idOrden: params.id,
       idProductos: search,
       cantidad
 
     }).then((data) => {
       console.log(data);
       if (data.status === 200) {
-        getDetalleByOrden(9).then((dataDetalles) => 
+        getDetalleByOrden(params.id).then((dataDetalles) => 
         setDetalles(dataDetalles));
         setCantidad('')
       } else {
@@ -138,16 +138,16 @@ function DetallesPage() {
               options={products}
               onChange={(event, option) => setSearch(option.id)}
               autoHighlight
-              getOptionLabel={(option) => option.nombre + ' ' + option.nombre}
+              getOptionLabel={(option) => option.nombre }
               renderOption={(props, option) => (
                 <Box component="li"  {...props}>
-                  {option.nombre} {option.nombre}
+                  {option.nombre} 
                 </Box>
               )}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Código de color"
+                  label="Producto"
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
@@ -191,8 +191,8 @@ function DetallesPage() {
             <Table sx={{ minWidth: 650 }} size="small" >
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">Nombre.</TableCell>
-                  <TableCell align="left">Mesa.</TableCell>
+                  <TableCell align="left">Nombre</TableCell>
+                  <TableCell align="left">Mesa</TableCell>
                   <TableCell align="left">Invernadero</TableCell>
                   <TableCell align="left">Cantidad</TableCell>
                   <TableCell align="left">::</TableCell>
@@ -219,15 +219,6 @@ function DetallesPage() {
             </Table>
           </TableContainer>
 
-        {!!openModal && (
-          <Modal>
-            {updating ? (
-              <DetallesUpdate detallesId={detallesIdEdit} />
-            ) : (
-              <DetallesNew />
-            )}
-          </Modal>
-        )}
       </div>
     </div>
   );
