@@ -11,7 +11,9 @@ function AppProvider (props) {
     const [ expenseIdEdit , setExpenseIdEdit ]=useState(null);
     const [ userIdEdit , setUserIdEdit ]=useState(null);
     const [ updating, setUpdating ] = useState(false);
+    const [ adding, setAdding ] = useState(false);
     const [ contractId, setContractId ] = useState(false);
+    const [ detailsId, setDetailsId ] = useState(false);
     const [ customerNewContract, setCustomerNewContract ] = useState(false);  
     const [ GreenhouseNewContract, setGreenhouseNewContract ] = useState(false);    
     const [greenhouseId, setGreenhouseId] = useState('');
@@ -39,6 +41,8 @@ function AppProvider (props) {
             ordenId, setOrdenId,
             role, setRole,
             token, setToken,
+            detailsId, setDetailsId,
+            adding, setAdding, 
 
             
 

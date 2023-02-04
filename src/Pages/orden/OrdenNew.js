@@ -10,7 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Autocomplete, Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { createOrden,getListOrden } from "../../Services/OrdenService";
 
 function CustomerNew({ open }) {
@@ -25,23 +25,25 @@ function CustomerNew({ open }) {
   } = React.useContext(AppContext);
   const [createAt, setCreateAt] = useState([]);
   const [error, setError] = useState(false);
+  const [search, setSearch] = useState('');
   const [clientes, setClientes] = useState([]);
   const [orden, setOrden] = useState([]);
   const [idClientes, setIdClientes] = useState("");
   
   const onClickSave = () => {
-    if (!idClientes) {
+    console.log('Guardando '+ search)
+    if (!search) {
       setError(true);
 
     } else {
       console.log({
         createAt,
-        idClientes,
+        idClientes:search,
         
       })
       createOrden({
         createAt,
-        idClientes,
+        idClientes: search,
         
       }).then((data) => {
         setOpenModal(false);
@@ -64,8 +66,12 @@ function CustomerNew({ open }) {
     setOpenModal(false);
   };
   const onChange = (event) => {
-    if (event.target.name === "createAt") setCreateAt(event.target.value);
-    if (event.target.name === "idClientes")setIdClientes(event.target.value);
+    if (event.target.name === "createAt") 
+    setCreateAt(event.target.value);
+    if (event.target.name === "idClientes")
+    setIdClientes(event.target.value);
+    if (event.target.name === 'search')
+    setSearch(event.target.value);
   };
 
   return (
@@ -88,8 +94,7 @@ function CustomerNew({ open }) {
             variant="standard"
           />
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-            <Select
+             {/* <Select
               size="small"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -102,7 +107,30 @@ function CustomerNew({ open }) {
                 <MenuItem key={item.id} value={item.id}> {item.fullname}
                 </MenuItem>
               ))}
-            </Select>
+            </Select> */}
+              <Autocomplete
+              id="code-select"
+              size="small"
+              options={clientes}
+              onChange={(event, option) => setSearch(option.id)}
+              autoHighlight
+              getOptionLabel={(option) => option.fullname }
+              renderOption={(props, option) => (
+                <Box component="li"  {...props}>
+                  {option.fullname} 
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Cliente"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: 'new-password', // disable autocomplete and autofill
+                  }}
+                />
+              )}
+            />
           </FormControl>
 
         </DialogContent>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeskList from './OrdenList.js';
 import Orden from './Orden'
 import { getListOrdenView, deleteOrden,getListOrden } from '../../Services/OrdenService'
+import DetallesPage from './../detalles/DetallesPage'
 import OrdenNew from "./OrdenNew";
 import OrdenUpdate from "./OrdenUpdate";
 import { setFormatDate } from "../../utils/DateFormat";
@@ -24,6 +25,7 @@ import IconButton from '@mui/material/IconButton';
 import ListIcon from '@mui/icons-material/List';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -36,7 +38,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 function OrdenPage () {
 
-  const { openModal, setOpenModal, ordenIdEdit, updating, setDeskIdEdit, setUpdating } = React.useContext(AppContext);
+  const { openModal, setOpenModal, updating, detailsId, ordenId, setOrdenId, setUpdating, adding, setAdding, } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
   const [orden, setOrden] = useState([]);
@@ -63,7 +65,10 @@ function OrdenPage () {
   }
 
   const onClickUpdate = (id) => {
-    navigate("/detalles/"+ id)
+    // navigate("/detalles/"+ id)
+    setOpenModal(true);
+    setAdding (true);
+    setOrdenId (id);
 
   };
 
@@ -115,7 +120,7 @@ function OrdenPage () {
                   <TableCell align="left">{row.clientes}</TableCell>
                   <TableCell align="left" >
                     <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
-                      <EditIcon fontSize="small"  color="info"/>
+                      <DescriptionIcon fontSize="small"  color="info"/>
                     </IconButton>
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error" />
@@ -131,7 +136,7 @@ function OrdenPage () {
         {!!openModal &&
                 (
                   <Modal>
-                    { updating ? <OrdenUpdate ordenId={ordenIdEdit} /> :<OrdenNew open={openModal}/> }
+                    { adding ? <DetallesPage ordenId={ordenId} /> :<OrdenNew open={openModal}/> }
                   </Modal>
                 )
         }

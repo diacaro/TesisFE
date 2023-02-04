@@ -25,7 +25,7 @@ import { Box, Button, Checkbox, MenuItem, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 
 
-function DetallesPage() {
+function DetallesPage({ordenId}) {
   const {
     openModal,
     setOpenModal,
@@ -33,6 +33,7 @@ function DetallesPage() {
     updating,
     setDetallesIdEdit,
     setUpdating,
+    setAdding,
   } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
@@ -76,14 +77,19 @@ function DetallesPage() {
   };
   const onClickDelete = (detallesId) => {
     deleteDetalles(detallesId).then((dataDel) => {
-      getDetalleByOrden(params.id).then((data) => 
+      getDetalleByOrden(ordenId).then((data) => 
       setDetalles(data));
     });
   };
 
+  const onClickClose = () => {
+    setOpenModal(false);
+    setAdding(false);
+}
+
   useEffect(() => {
-    
-    getDetalleByOrden(params.id).then((data) => 
+    console.log(ordenId);
+    getDetalleByOrden(ordenId).then((data) => 
     setDetalles(data));
 
   }, []);
@@ -108,14 +114,14 @@ function DetallesPage() {
     }
     console.log(search);
     createDetalles({
-      idOrden: params.id,
+      idOrden: ordenId,
       idProductos: search,
       cantidad
 
     }).then((data) => {
       console.log(data);
       if (data.status === 200) {
-        getDetalleByOrden(params.id).then((dataDetalles) => 
+        getDetalleByOrden(ordenId).then((dataDetalles) => 
         setDetalles(dataDetalles));
         setCantidad('')
       } else {
@@ -129,6 +135,7 @@ function DetallesPage() {
   return (
     <div className="product-page-container"   >
       <div className="product-page">
+      <button className="modal__button__close" onClick={onClickClose}>x</button>
         <h2>Detalles</h2>
         <form onSubmit={onSubmit}>
         <div className="combobox-container" >
