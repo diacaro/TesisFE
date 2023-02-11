@@ -114,7 +114,7 @@ function ProductNew() {
 
   return (
     <div className={styles.modal}>
-      <div className={styles.product__container}>
+      <div className={styles.modal__label}>
         <Typography className={styles.title} variant="h5" component="h5">
           Productos
         </Typography>
@@ -259,7 +259,7 @@ function ProductNew() {
               <Alert severity="info">Guardando</Alert>
             </Stack>
           )}
-          <Button onClick={handleClose}>Cerrar</Button>
+          <Button variant="outlined" onClick={handleClose}>Cerrar</Button>
         </form>
       </div>
     </div>

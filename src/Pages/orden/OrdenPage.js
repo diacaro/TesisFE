@@ -35,6 +35,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+// ------------------------color-------------------------
+
+// ------------------------------------------------------
+// -----------------------color----------------------------------
+
+
+  
+// --------------------------------------------------------------
+
 
 function OrdenPage () {
 
@@ -48,6 +57,16 @@ function OrdenPage () {
   const [createAt, setCreateAt] = useState([]);
   const navigate = useNavigate ()
 
+
+  // ---------------------estilo columna-----------------------------------
+  
+//   const styleRow = {
+//     "display": "block",
+//     "overflow-y": "scroll",
+//     "max-height": "160px"
+// }
+
+  // ---------------------estilo columna-----------------------------------
   useEffect(() => {
     getListOrdenView().then(data => {
       setOrden(data);
@@ -88,20 +107,20 @@ function OrdenPage () {
 
   return (
     <div className="table-page-container">
-      <div className="table-page">
+      <div className="table-page" >
         <h2>Ordenes</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>
           </form>
           
-          <Button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
-          </Button>
+          <button variant="outlined" className="button-new-ordenpage" onClick={handleClickOpen}>
+            + Nuevo
+          </button>
 
         </div>
-          <dir/>
-        <TableContainer component={Paper} >
-          <Table sx={{ minWidth: 450 }} aria-label="simple table">
+          
+        <TableContainer   component={Paper}  >
+          <Table sx={{ minWidth: 350 }} aria-label="simple table" >
             <TableHead>
               <TableRow>
                 {/* <TableCell>Orden</TableCell> */}
@@ -120,7 +139,7 @@ function OrdenPage () {
                   <TableCell align="left">{row.clientes}</TableCell>
                   <TableCell align="left" >
                     <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
-                      <DescriptionIcon fontSize="small"  color="info"/>
+                      <DescriptionIcon fontSize="small"  color="success" />
                     </IconButton>
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error" />

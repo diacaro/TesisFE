@@ -203,109 +203,116 @@ function ProductPage() {
       <div className="product-page">
       <h2>Productos</h2>
 
-    <Container>
-      <div className="button-container" >
-          <form onSubmit={onSubmit}>
-          </form>
-          <button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
-          </button>
-        </div>
-        
-      <div className="button-container">
-        <form onSubmit={onSubmit}>
-          <input 
-              name="itemSearch"
-              placeholder="Buscar"
-              value={itemSearch}
-              onChange={onChange}
-          />
-          <button type="submit" className="button-new-product"> Buscar </button>
-        </form>
-        
-      </div>
-      <dir/>
-      <dir/>
-    <Card>
-      <ProductListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-      {/* <Scrollbar> */}
-      <TableContainer component={Paper} sx={{ minWidth: 700 }}>
-      <Table sx={{ minWidth: 450 }} aria-label="simple table">
-            <StockListHead
-                        order={order}
-                        orderBy={orderBy}
-                        headLabel={TABLE_HEAD}
-                        rowCount={products.length}
-                        numSelected={selected.length}
-                        onRequestSort={handleRequestSort}
-                        onSelectAllClick={handleSelectAllClick}
-                      />
-        {/* <TableHead>
-          <TableRow>
-            <TableCell>Nombre</TableCell>
-            <TableCell align="left">Clima</TableCell>            
-            <TableCell align="left">Precio</TableCell>
-            <TableCell align="left">Categoria</TableCell>
-            <TableCell align="left">Mesa</TableCell>
-            <TableCell align="left">Invernadero</TableCell>
-            <TableCell align="left">Sede</TableCell>
-            <TableCell align="left">Cantidad</TableCell>
-            <TableCell align="left"><ListIcon /></TableCell>
+      <Container>
+          <div className="button-container" >
+            <div>
+              <form onSubmit={onSubmit}>
+              </form>
+              <button variant="outlined" className="button-new-productpage" onClick={handleClickOpen}>
+                + Nuevo
+              </button>
+              </div>
+          </div>
             
-          </TableRow>
-        </TableHead> */}
-        <TableBody>
-          {filteredStock.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-            const { nombre} = row;
-            const selectedProduct = selected.indexOf(nombre) !== -1;
-            return (
-            <TableRow
-            hover key={row.id}
-            role="checkbox"
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            tabIndex={-1}
-            selected={selectedProduct}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox checked={selectedProduct} onChange={(event) => handleClick(event, nombre)} />
-              </TableCell>
-              <TableCell align="left">{row.nombre}</TableCell>
-              <TableCell align="center">{row.clima}</TableCell>
-              <TableCell align="center">{row.precio}{" $"}</TableCell>
-              <TableCell align="center">{row.categoria}</TableCell>           
-              <TableCell align="center">{row.mesa}</TableCell>
-              <TableCell align="center">{row.invernadero}</TableCell>
-              <TableCell align="center">{row.sede}</TableCell>
-              <TableCell align="center">{row.cantidad}</TableCell>
-              <TableCell align="left">
-                <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
-                  <EditIcon fontSize="small"  color="info"/>
-                </IconButton>
+            <div className="button-container">
+            <form onSubmit={onSubmit} className="button-container">
+              <div>
+              <input 
+                  name="itemSearch"
+                  placeholder="Buscar"
+                  value={itemSearch}
+                  onChange={onChange}
+              />
+              </div>
+              <div>
+              <button type="submit" className="button-search-productpage"> Buscar </button>
+              </div>
+            </form>
+            
+          </div>
+          {/* <dir/>
+
+          <dir/> */}
+        <Card>
+          <ProductListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          {/* <Scrollbar> */}
+          <TableContainer component={Paper} sx={{ minWidth: 700 }}>
+          <Table sx={{ minWidth: 450 }} aria-label="simple table">
+                <StockListHead
+                            order={order}
+                            orderBy={orderBy}
+                            headLabel={TABLE_HEAD}
+                            rowCount={products.length}
+                            numSelected={selected.length}
+                            onRequestSort={handleRequestSort}
+                            onSelectAllClick={handleSelectAllClick}
+                          />
+            {/* <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell align="left">Clima</TableCell>            
+                <TableCell align="left">Precio</TableCell>
+                <TableCell align="left">Categoria</TableCell>
+                <TableCell align="left">Mesa</TableCell>
+                <TableCell align="left">Invernadero</TableCell>
+                <TableCell align="left">Sede</TableCell>
+                <TableCell align="left">Cantidad</TableCell>
+                <TableCell align="left"><ListIcon /></TableCell>
                 
-               
-                <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
-                   <DeleteIcon fontSize="small" color="error"/>
-                   </IconButton>
-              </TableCell>
-            </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      
-     </TableContainer>
-        <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={products.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-     {/* </Scrollbar> */}
-     </Card>
-    </Container>
+              </TableRow>
+            </TableHead> */}
+            <TableBody>
+              {filteredStock.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                const { nombre} = row;
+                const selectedProduct = selected.indexOf(nombre) !== -1;
+                return (
+                <TableRow
+                hover key={row.id}
+                role="checkbox"
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                tabIndex={-1}
+                selected={selectedProduct}
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox checked={selectedProduct} onChange={(event) => handleClick(event, nombre)} />
+                  </TableCell>
+                  <TableCell align="left">{row.nombre}</TableCell>
+                  <TableCell align="center">{row.clima}</TableCell>
+                  <TableCell align="center">{row.precio}{" $"}</TableCell>
+                  <TableCell align="center">{row.categoria}</TableCell>           
+                  <TableCell align="center">{row.mesa}</TableCell>
+                  <TableCell align="center">{row.invernadero}</TableCell>
+                  <TableCell align="center">{row.sede}</TableCell>
+                  <TableCell align="center">{row.cantidad}</TableCell>
+                  <TableCell align="left">
+                    <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
+                      <EditIcon fontSize="small"  color="info"/>
+                    </IconButton>
+                    
+                  
+                    <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
+                      <DeleteIcon fontSize="small" color="error"/>
+                      </IconButton>
+                  </TableCell>
+                </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          
+          </TableContainer>
+              <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={products.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+          {/* </Scrollbar> */}
+        </Card>
+      </Container>
       
 
       {!!openModal &&

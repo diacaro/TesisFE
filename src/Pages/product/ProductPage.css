@@ -22,9 +22,10 @@
 }
 .button-container{   
     display: flex;
-    justify-content:flex-end;    
+    flex-direction: row ;
+    gap: 10px;   
 }
-.button-container input{
+.button-container-product input{
     
     background-color: white;
     border: none;
@@ -33,17 +34,37 @@
     font-size: var(--md);
     padding: 6px;
     margin: 5px 5px;
+
     
 }
 
-.button-new-product {
-    background-color: var(--white);
-    border-radius: 8px;
-    border: 1px solid;
-    border-color: var(--hospital-green);    
+.button-new-productpage {
+    background-color:  #89bd61;
+    color: #ffffff;
+    border-radius: 12px;
+    bottom: 1rem;
+    border: 1px ;
+    border-color: none ;    
     width: 110px;
     cursor: pointer;
     font-size: var(--md);
     font-weight: bold;
     height: 40px;
+    
+    
+  }
+.button-search-productpage {
+    background-color: #03a9f4;
+    color: #ffffff;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    border: 1px ;
+    border-color: none ;    
+    width: 110px;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 40px;
+    
+    
   }

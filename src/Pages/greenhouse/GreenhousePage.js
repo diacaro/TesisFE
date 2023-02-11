@@ -19,6 +19,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Modal } from '../../Modal/index'
 import './GreenhousePage.css'
+import { width } from "@mui/system";
+import { Input, TextField } from "@mui/material";
 
 
 function GreenhousePage() {
@@ -95,27 +97,29 @@ function GreenhousePage() {
         <div className="button-container" >
           <form onSubmit={onSubmit}>
           </form>
-          <button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
+          <button variant="outlined" className="button-new-greenhouse" onClick={handleClickOpen}>
+            + Nuevo
           </button>
         </div>
         <div className="button-container">
+          <div>
           <form onSubmit={onSubmit}>
-            <input
+            </form>
+            <TextField 
+              id="outlined-basic"
+              border="none"
               name="itemSearch"
               value={itemSearch}
               onChange={onChange}
               placeholder="Invernadero"
             />
-            <button type="submit" className="button-new-greenhouse">Buscar</button>
-          </form>
-          
+            <button type="submit" className="button-search-greenhousepage">Buscar</button>
+            </div>
         </div>
-        <dir/>
+    <div className="greenhouse-page-container-table">
+    <TableContainer component={Paper}  >
 
-      <TableContainer component={Paper}>
-
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Invernadero</TableCell>
@@ -124,7 +128,7 @@ function GreenhousePage() {
             
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {invernaderos.map((row) => (
             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell align="left">{row.invernadero}</TableCell>           
@@ -142,6 +146,7 @@ function GreenhousePage() {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
         {/* {!!openModal &&
           (
             <Modal>

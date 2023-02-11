@@ -75,19 +75,20 @@ function DeskPage () {
 
   return (
     <div className="table-page-container">
-      <div className="table-page">
-        <h2>Mesa</h2>
+          <div className="table-page">
+            <h2>Mesa</h2>
+          
         <div className="button-container">
           <form onSubmit={onSubmit}>
-          </form>
           
-          <Button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
-          </Button>
+          <button variant="outlined" className="button-new-deskpage" onClick={handleClickOpen}>
+            + Nuevo
+          </button>
 
+          </form>
         </div>
-          <dir/>
-        <TableContainer component={Paper} >
+
+        <TableContainer component={Paper}  >
           <Table sx={{ minWidth: 450 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -126,9 +127,7 @@ function DeskPage () {
                 )
         }
       
-      </div>
-       {/* <DeskNew open={openModal}  /> */}
-       
+      </div>      
     </div>
   );
 

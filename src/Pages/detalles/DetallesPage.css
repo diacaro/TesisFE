@@ -2,7 +2,7 @@
     --white: #FFFFFF;
     --black: #000000;
     --very-light-pink: #383838;
-    --text-input-field: #dfdede;
+    --text-input-field: #000000;
     --hospital-green: #0077DC;
     --sm: 14px;
     --md: 16px;
@@ -21,10 +21,24 @@
     height: 500px;
     
 }
+
+.product-page-tittle{
+    color: #000000;
+
+
+}
+
+
+
+
 .button-container{   
     display: flex;
-    justify-content:flex-end;    
+    justify-content:flex-end; 
+    
 }
+
+
+
 .button-container input{
     
     background-color: white;
@@ -41,15 +55,17 @@
     display: flex;
     background-color: white;
     border: none;
-    border-radius: 5px;
-    height: 25px;
+    border-radius: 2px;
+    height: 30px;
     font-size: var(--md);
-    padding: 8px;
-    margin: 0px 0px;
-
-    
+    padding: 5px;
     
 }
+.combobox-container__autocomplete {
+    padding: .5rem;
+       
+}
+
 
 .button-new-product {
     background-color: var(--white);
@@ -61,4 +77,16 @@
     font-size: var(--md);
     font-weight: bold;
     height: 40px;
-  }
+}
+
+
+.modal__button__close__x {
+
+    width: 25px;
+    height: 25px;
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #eeeeee;
+    margin-bottom: 1rem ;
+    justify-content: flex-end;
+}

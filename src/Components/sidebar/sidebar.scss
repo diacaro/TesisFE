@@ -1,10 +1,10 @@
 .sidebar {
     position: fixed;
-    top: 1;
+    top: 0;
     left: 0;
     height: 100vh;
-    width: 320px;
-    background-color: #fff;
+    width: 280px;
+    background-color: #1c2536;
 
     &__logo {
         display: grid;
@@ -26,10 +26,10 @@
             display: flex;
             align-items: center;
             place-content: flex-start;
-            padding: 1rem 3rem;
+            padding: 1rem 2rem;
             font-size: 1.25rem;
             font-weight: 500;
-            color: #555555;
+            color: #a7aeb8;
             transition: color 0.3s ease-in-out;
 
             &.active {
@@ -43,18 +43,49 @@
                     font-size: 1.75rem;
                 }
             }
+            @media (max-width: 768px)  { 
+
+                &.sidebar__item{
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                background-color: #fff;
+                display: flex;
+                // flex-direction: column;
+                width: 100%;
+                transition: 0.3s ease all;
+                }
+                
+                &.sidebar__toggle span{
+                width: 30px;
+                height: 4px;
+                background-color: #fff;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transform-origin: 5px 0%;
+                transition: 0.2s ease all;
+                }
+        
+            }
         }
 
         &__indicator {
             position: absolute;
-            top: 0;
+            top: 0%;
             left: 50%;
-            width: calc(100% - 40px);
+            bottom: 0%;
+            width: calc(100% - 20px);
             border-radius: 10px;
-            background-color: #308efe;
+            background-color: rgba(255, 255, 255, 0.185);
+            // background-color: #03a9f4;
             z-index: -1;
-            transform: translateX(-50%);
-            transition: 0.3s ease-in-out;
+            transform: translateX(-30%);
+            transition: 0.2s ease-in-out;
         }
     }
+
+    &__sidebar_toggle{
+        display: none;
+    }
+
 }

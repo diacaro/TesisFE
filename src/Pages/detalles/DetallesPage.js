@@ -135,63 +135,70 @@ function DetallesPage({ordenId}) {
   return (
     <div className="product-page-container"   >
       <div className="product-page">
-      <button className="modal__button__close" onClick={onClickClose}>x</button>
-        <h2>Detalles</h2>
+        <div className="modal__button__close__x">
+      <button className="modal__button__close__x" onClick={onClickClose}>x</button>
+      </div>
+        <h2 className="product-page-tittle">Detalles</h2>
         <form onSubmit={onSubmit}>
-        <div className="combobox-container" >
-        <Autocomplete
-              id="code-select"
-              size="small"
-              options={products}
-              onChange={(event, option) => setSearch(option.id)}
-              autoHighlight
-              getOptionLabel={(option) => option.nombre }
-              renderOption={(props, option) => (
-                <Box component="li"  {...props}>
-                  {option.nombre} 
-                </Box>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Producto"
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password', // disable autocomplete and autofill
-                  }}
+          <div className="combobox-container" >
+            <div className="combobox-container__autocomplete">
+              <Autocomplete
+                  id="code-select"
+                  size="small"
+                  options={products}
+                  onChange={(event, option) => setSearch(option.id)}
+                  autoHighlight
+                  getOptionLabel={(option) => option.nombre }
+                  renderOption={(props, option) => (
+                    <Box component="li"  {...props}>
+                      {option.nombre} 
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Producto"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: 'new-password', // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
-             <TextField
-            size="small"
-            type="number"
-            id="outlined-basic"
-            label="Cantidad"
-            variant="outlined"
-            name="cantidad"
-            value={cantidad}
-            onChange={onChange}
-          />
-           <Button type="submit" variant="outlined">
-            Agregar
-          </Button>
-        </div>
-        </form>
+                </div>
+              <div className="combobox-container__autocomplete">
+                <TextField
+                size="small"
+                type="number"
+                id="outlined-basic"
+                label="Cantidad"
+                variant="outlined"
+                name="cantidad"
+                value={cantidad}
+                onChange={onChange}
+              />
+                <Button type="submit" variant="outlined" >
+                  Agregar
+                </Button>
+              </div>
 
-        <div className="button-container">
-          {/* <form onSubmit={onSubmit}>
-            <input
-              name="itemSearch"
-              placeholder="Buscar"
-              value={itemSearch}
-              onChange={onChange}
-            />
-            <button type="submit" className="button-new-product">
-              {" "}
-              Buscar{" "}
-            </button>
-          </form> */}
-        </div>
+          </div>
+          </form>
+
+          <div className="button-container">
+            {/* <form onSubmit={onSubmit}>
+              <input
+                name="itemSearch"
+                placeholder="Buscar"
+                value={itemSearch}
+                onChange={onChange}
+              />
+              <button type="submit" className="button-new-product">
+                {" "}
+                Buscar{" "}
+              </button>
+            </form> */}
+          </div>
         <dir />
         <dir />
         <TableContainer component={Paper}>

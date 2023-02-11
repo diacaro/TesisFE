@@ -63,6 +63,24 @@ body {
 .modal__input-name {
   margin-bottom: 16px;
 }
+
+.table-page-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    padding: 0%;
+    width: 90vw; 
+    background-color: #eeeeee; 
+}
+
+.table-page{  
+
+    margin-top: 24px;
+    padding: 20px;
+    width: 90vw;  
+    background-color: #eeeeee; 
+    
+}
 .primary-button {
   background-color: var(--white);
   border-radius: 8px;
@@ -73,6 +91,22 @@ body {
   font-size: var(--md);
   font-weight: bold;
   height: 50px;
+}
+
+.button-new-deskpage {
+  background-color:  #89bd61;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  border: 1px ;
+  border-color: none ;    
+  width: 110px;
+  cursor: pointer;
+  font-size: var(--md);
+  font-weight: bold;
+  height: 40px;
+  
+  
 }
 .modal__select{
 height: 25px;  

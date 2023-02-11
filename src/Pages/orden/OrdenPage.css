@@ -11,12 +11,18 @@
 .table-page-container{
     display: flex;
     justify-content: center;
+    margin-top: 24px;
+    padding: 10px;
+    width: 70vw; 
+    background-color: #eeeeee; 
 }
 
 .table-page{  
+
     margin-top: 24px;
+    margin-left: auto;
     padding: 20px;
-    width: 70vw;  
+    width: 50vw ;  
     background-color: #eeeeee; 
     
 }
@@ -24,26 +30,17 @@
     display: flex;
     justify-content:flex-end;    
 }
-.button-container input{
-    
-    background-color: white;
-    border: none;
-    border-radius: 8px;
-    height: 20px;
-    font-size: var(--md);
-    padding: 6px;
-    margin: 5px 5px;
-    
-}
 
-.button-new-table {
-    background-color: var(--white);
+.button-new-ordenpage {
+    background-color:  #89bd61;
+    color: #ffffff;
     border-radius: 8px;
-    border: 1px solid;
-    border-color: var(--hospital-green);    
+    margin-bottom: 24px;
+    border: 1px ;
+    border-color: none ;    
     width: 110px;
     cursor: pointer;
     font-size: var(--md);
     font-weight: bold;
-    height: 40px;
-  }
+    height: 40px; 
+}
