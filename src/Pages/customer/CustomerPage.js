@@ -90,28 +90,33 @@ function CustomerPage() {
     <div className="customer-page-container">
       <div className="customer-page">
         <h2>Clientes</h2>
+
+        <div className="button-container">
+          <div>
+          <form onSubmit={onSubmit}>
+            </form>
+          <button variant="outlined" className="button-new-customer" onClick={handleClickOpen}>
+            + Nuevo
+          </button>
+          </div>
+        </div>
+
         <div className="button-container">
           <form onSubmit={onSubmit}>
-          <div className="button-container" >
-          <form onSubmit={onSubmit}>
-          </form>
-          <button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
-          </button>
-        </div>
-            <input
-              name="itemSearch"
-              value={itemSearch}
-              onChange={onChange}
-              placeholder="Apellido"
-            />
-            <button type="submit" className="button-new-customer">Buscar</button>
-          </form>
-          
+            <div>
+              <input
+                name="itemSearch"
+                value={itemSearch}
+                onChange={onChange}
+                placeholder="Apellido"
+                />
+              <button type="submit" className="button-search-customer">Buscar</button>
+            </div>
+          </form>           
         </div>
 
         <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Nombre</TableCell>

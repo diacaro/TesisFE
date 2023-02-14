@@ -22,29 +22,43 @@
 }
 .button-container{   
     display: flex;
-    justify-content:flex-end;    
-    gap: 8px;
+    flex-direction: row ;
+    gap: 10px;  
 }
-.button-container input{
+.button-container {
     
-    background-color: white;
-    border: none;
-    border-radius: 8px;
-    height: 20px;
-    font-size: var(--md);
-    padding: 6px;
-    margin: 5px 5px;
+    display: flex;
+    flex-direction: row ;
+    gap: 10px;   
     
 }
 
 .button-new-customer {
-    background-color: var(--white);
-    border-radius: 8px;
-    border: 1px solid;
-    border-color: var(--hospital-green);    
+    background-color:  #89bd61;
+    color: #ffffff;
+    border-radius: 12px;
+    bottom: 1rem;
+    border: 1px ;
+    border-color: none ;    
     width: 110px;
     cursor: pointer;
     font-size: var(--md);
     font-weight: bold;
     height: 40px;
   }
+  .button-search-customer {
+    background-color: #03a9f4;
+    color: #ffffff;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    border: 1px ;
+    border-color: none ;    
+    width: 110px;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 40px;
+    
+    
+  }
+

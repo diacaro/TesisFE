@@ -72,12 +72,12 @@ function CategoryPage() {
         <h2>Categorias</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>
-          </form>
           
-          <Button variant="outlined" className="button-new-product" onClick={handleClickOpen}>
-            Nuevo
-          </Button>
+          <button variant="outlined" className="button-new-category" onClick={handleClickOpen}>
+            + Nuevo
+          </button>
 
+          </form>
         </div>
           <dir/>
         <TableContainer component={Paper} >

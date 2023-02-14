@@ -10,13 +10,13 @@
   }
 .product-page-container{
     display: flex;
-    justify-content: center;
+
 }
 
 .product-page{  
     margin-top: 24px;
-    padding: 20px;
-    width: 70vw;  
+    padding: 10px 0px 0px 5px;
+    width: 0vw;  
     background-color: #eeeeee; 
     
 }

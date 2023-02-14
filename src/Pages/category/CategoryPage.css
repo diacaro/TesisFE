@@ -36,11 +36,13 @@
     
 }
 
-.button-new-table {
-    background-color: var(--white);
-    border-radius: 8px;
-    border: 1px solid;
-    border-color: var(--hospital-green);    
+.button-new-category {
+    background-color:  #89bd61;
+    color: #ffffff;
+    border-radius: 12px;
+    bottom: 1rem;
+    border: 1px ;
+    border-color: none ;    
     width: 110px;
     cursor: pointer;
     font-size: var(--md);

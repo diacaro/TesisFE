@@ -1,3 +1,4 @@
+import { Box, Container, Toolbar } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './sidebar.scss';
@@ -74,9 +75,11 @@ const Sidebar = () => {
         const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
         setActiveIndex(curPath.length === 0 ? 0 : activeItem);
     }, [location]);
-
+    
     return <div className='sidebar'>
+
         <img src="logo-mediano.png" alt="logo" className="sidebar__logo" width= "200px" />
+
         <div ref={sidebarRef} className="sidebar__menu">
             <div
                 ref={indicatorRef}
@@ -101,6 +104,6 @@ const Sidebar = () => {
             }
         </div>
     </div>;
-};
+}
 
 export default Sidebar;

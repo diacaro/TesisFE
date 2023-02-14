@@ -20,7 +20,8 @@ function App() {
     <InvoiceProvider>
     <BrowserRouter>
     {/* <Sidebar/> */}
-    <Routes>   
+      <div className="flex">  
+    <Routes> 
       <Route path='/' element={<AppLayout />}>
         <Route path="/invernadero" element={<GreenhousePage />} />
         <Route path="/invoices" element={<InvoiceNew />} />
@@ -37,6 +38,7 @@ function App() {
         <Route path="/detalles/:id" element={<DetallesPage />} />
       </Route>
     </Routes>
+      </div>
 
     </BrowserRouter>
     </InvoiceProvider>

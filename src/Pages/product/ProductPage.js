@@ -31,14 +31,16 @@ import Scrollbar from '../../Components/scrollbar';
 
 const TABLE_HEAD = [
   // { id: 'select', label: 'Select', alignRight: false },
-  { id: 'nombre', label: 'Nombre', alignRight: false },
+  { id: 'nombre', label: 'Nombre', alignCenter: false },
   { id: 'clima', label: 'Clima', alignRight: false },
   { id: 'precio', label: 'Precio', alignRight: false },
-  { id: 'Categoria', label: 'Categoria', alignRight: false },
-  { id: 'Mesa', label: 'Mesa', alignRight: false },
-  { id: 'Invernadero', label: 'Invernadero', alignRight: false },
+  { id: 'categoria', label: 'Categoria', alignRight: false },
+  { id: 'mesa', label: 'Mesa', alignRight: false },
+  { id: 'invernadero', label: 'Invernadero', alignRight: false },
   { id: 'sede', label: 'Sede', alignRight: false },
   { id: 'cantidad', label: 'Cantidad', alignRight: false },
+  { id: '', label: <ListIcon />, alignRight: false },
+
   <ListIcon />,
   
 ];
@@ -261,7 +263,7 @@ function ProductPage() {
                 
               </TableRow>
             </TableHead> */}
-            <TableBody>
+            <TableBody >
               {filteredStock.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 const { nombre} = row;
                 const selectedProduct = selected.indexOf(nombre) !== -1;
@@ -288,8 +290,7 @@ function ProductPage() {
                     <IconButton size="small" aria-label="edit" onClick={() => { onClickUpdate(row.id) }}>
                       <EditIcon fontSize="small"  color="info"/>
                     </IconButton>
-                    
-                  
+                                      
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error"/>
                       </IconButton>
