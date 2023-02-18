@@ -11,7 +11,7 @@ import { sendMailById } from '../../service/userService'
 
 
 
-import './InvoicePdf.css'
+import './DetallesPdf.css'
 
 import Logo from '../../img/logo-mediano.png'
 
