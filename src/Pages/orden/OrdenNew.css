@@ -37,6 +37,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   width: 420px;
+  padding: 10px 10px 5px 0px;
 }
 
 .modal__formrow {
@@ -46,23 +47,29 @@ body {
 }
 
 .modal__label {
-  font-size: var(--sm);
-  
+  font-size: var(--md);
+  justify-content: center;  
   margin-bottom: 4px;
   color: #4b4b4b;
 }
 .modal__input {
-  background-color: var(--text-input-field);
+
   border: none;
-  border-radius: 4px;
-  height: 24px;
+  border-radius: 10px;
+  height: 36px;
   font-size: var(--md);
   padding: 6px;
-  margin: 5px 5px;
+
 }
 .modal__input-name {
   margin-bottom: 16px;
+
 }
+
+.modal__select{
+  height: 40px;  
+  -ms-flex-align: center;
+  }
 .primary-button {
   background-color: var(--white);
   border-radius: 8px;

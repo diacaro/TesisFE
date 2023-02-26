@@ -3,7 +3,7 @@ import { AppContext } from "../../Context/AppContext";
 import { createCustomer } from '../../Services/customerService'
 import './CustomerNew.css'
 
-import { InvoiceContext } from "../invoice/InvoiceContext";
+
 // import { createAmbience } from '../../Services/ambienceService'
 
 
@@ -16,7 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function CustomerNew({ open }) {
-  const { searchCustomer, setSearchCustomer } = React.useContext(InvoiceContext);
+  const { searchCustomer, setSearchCustomer } = React.useContext();
   const { setCustomerId, setOpenModal, setUpdating, customerNewInvoice, setCustomerNewInvoice } = React.useContext(AppContext);  
   const [customer, setCustomer] = useState({ fullname: '',phone: '', address: ''});
   const [error, setError] = useState(false);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { createProduct } from "../../Services/productService";
-import { getListDesk } from "../../Services/deskService";
+import { getListDesk, getListDeskInvernadero  } from "../../Services/deskService";
 import { getListGreenhouse } from "../../Services/greenhouseService";
 import { getListCategory } from "../../Services/categoryService";
-import styles from "./DetallesNew.module.css";
+import styles from "./ProductNew.module.css";
 
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -21,15 +21,20 @@ import Stack from "@mui/material/Stack";
 
 
 
-function ProductNew() {
+function ProductNew2() {
   // const { setRefreshProducts } = React.useContext(InvoiceContext);
   const { setOpenModal, setUpdating } = React.useContext(AppContext);
   // const [nombre, setProduct] = useState('');
   const [mesa, setDesk] = useState([]);
+  const [categoria, setCategoria] = useState([]);
   const [Greenhouse, setGreenhouse] = useState([]);
+  const [idCategoria, setIdCategoria] = useState("");
   const [idMesa, setIdMesa] = useState("");
   const [nombre, setNombre] = useState("");
+  const [clima, setClima] = useState("");
+  const [precio, setPrecio] = useState("");
   const [idInvernadero, setIdInvernadero] = useState("");
+  const [sede, setSede] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [error, setError] = useState(false);
 
@@ -42,22 +47,21 @@ function ProductNew() {
     // setRefreshProducts(false);
     if (!nombre) {
       setError(true);
+     
       return;
     }
     createProduct({
       nombre,
+      clima,
+      precio,
+      idCategoria,
       idMesa,
       idInvernadero,
+      sede,
       cantidad
-      
     }).then((data) => {
       if (data.status === 200) {
-        // setRefreshProducts(true);
-        // setProduct("");
-        // setCategory("");
-        // setDesk("");
-        // setGreenhouse("");
-        // setSaving(false);
+
       } else {
         setError(true);
         setSaving(false);
@@ -66,39 +70,49 @@ function ProductNew() {
   };
 
   useEffect(() => {
-    getListDesk().then((data) => 
+    if (idInvernadero)
+    getListDeskInvernadero(idInvernadero).then((data) => 
     setDesk(data));
+
+  }, [idInvernadero]);
+
+  useEffect(() => {
 
     getListGreenhouse().then((data) => 
     setGreenhouse(data));
   
+    getListCategory().then((data) => 
+    setCategoria(data));
   }, []);
-
 
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  // const handleChange = (event) => {
-  //   setClima({value: event.target.value});
-  // }
-
   const onChange = (event) => {
     if (event.target.name === "nombre") setNombre(event.target.value);
+    if (event.target.name === "clima") setClima(event.target.value);
+    if (event.target.name === "precio") setPrecio(event.target.value);
+    if (event.target.name === "idCategoria") setIdCategoria(event.target.value);
     if (event.target.name === "idMesa") setIdMesa(event.target.value);
     if (event.target.name === "idInvernadero") setIdInvernadero(event.target.value);
+    if (event.target.name === "sede") setSede(event.target.value);
     if (event.target.name === "cantidad") setCantidad(event.target.value);
   };
 
   return (
     <div className={styles.modal}>
-      <div className={styles.product__container}>
-        <Typography className={styles.title} variant="h5" component="h5">
-          Productos
+      <div className={styles.modal__label}>
+        <div className={styles.modal__tittle}>
+        <Typography  variant="h3" component="h2">
+          Nuevo Producto
         </Typography>
 
-        <form onSubmit={onSubmit} className={styles.form}>
+        </div>
+
+        <form onSubmit={onSubmit} className={styles.producto__form}>
           <TextField
+            className={styles.modal__input}
             size="small"
             id="outlined-basic"
             label="Nombre"
@@ -106,11 +120,53 @@ function ProductNew() {
             name="nombre"
             value={nombre}
             onChange={onChange}
+                        
           />
+          <TextField
+            className={styles.modal__input}
+            size="small"
+            id="outlined-basic"
+            label="Clima"
+            variant="outlined"
+            name="clima"
+            value={clima}
+            onChange={onChange}
+          />
+          <TextField
+            className={styles.modal__input}
+            size="small"
+            id="outlined-basic"
+            label="Precio"
+            variant="outlined"
+            name="precio"
+            value={precio}
+            onChange={onChange}
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
+            <Select
+              className={styles.modal__select}
+              size="small"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={idCategoria}
+              name="idCategoria"
+              label="categoryId"
+              onChange={onChange}
+            >
+              {categoria.map((item) => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.categoria}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Mesa</InputLabel>
             <Select
+            className={styles.modal__select}
               size="small"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -130,12 +186,13 @@ function ProductNew() {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Invernadero</InputLabel>
             <Select
+            className={styles.modal__select}
               size="small"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={idInvernadero}
               name="idInvernadero"
-              label="IdInvernadero"
+              label="invernaderoId"
               onChange={onChange}
             >
               {Greenhouse.map((item) => (
@@ -147,6 +204,18 @@ function ProductNew() {
           </FormControl>
 
           <TextField
+            className={styles.modal__input}
+            size="small"
+            id="outlined-basic"
+            label="Sede"
+            variant="outlined"
+            name="sede"
+            value={sede}
+            onChange={onChange}
+          />
+
+          <TextField
+            className={styles.modal__input}
             size="small"
             type="number"
             id="outlined-basic"
@@ -157,13 +226,13 @@ function ProductNew() {
             onChange={onChange}
           />
 
-          <Button type="submit" variant="outlined">
+          <Button className={styles.primary__button } type="submit" variant="outlined">
             Guardar
           </Button>
 
           {error && (
             <Stack sx={{ width: "100%" }} spacing={2}>
-              <Alert severity="error"> Invernadero || Mesa y Sede </Alert>
+              <Alert severity="error"> Todos los campos deben estar llenos </Alert>
             </Stack>
           )}
           {saving && (
@@ -171,11 +240,11 @@ function ProductNew() {
               <Alert severity="info">Guardando</Alert>
             </Stack>
           )}
-          <Button onClick={handleClose}>Cerrar</Button>
+          <Button className={styles.primary__button} variant="outlined" onClick={handleClose}>Cerrar</Button>
         </form>
       </div>
     </div>
   );
 }
 
-export default ProductNew;
+export default ProductNew2;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getListProductDesk, getListProductView, listByCodeProduct, deleteProduct } from '../../Services/productService'
-import ProductNew from "./ProductNew.js";
+import ProductNew from "./ProductNew2.js";
 import ProductUpdate from './ProductUpdate'
 import { filter } from 'lodash';
 
@@ -21,10 +21,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
 import './ProductPage.css'
-import { Card, Checkbox, Container, TablePagination } from "@mui/material";
+import { Card, Checkbox, Container, InputAdornment, TablePagination, Toolbar, Tooltip, Typography, OutlinedInput } from "@mui/material";
+import { styled, alpha } from '@mui/material/styles';
 import StockListHead from "./Head&Toolbar/ProductListHead";
 import ProductListToolbar from "./Head&Toolbar/ProductListToolbar";
-import Scrollbar from '../../Components/scrollbar';
+import Iconify from "../../Components/iconify/Iconify";
 
 // ------------------------------------------------------
 
@@ -100,7 +101,7 @@ function ProductPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  
+
 
   useEffect(() => {
     getListProductView().then(data => {
@@ -159,7 +160,10 @@ function ProductPage() {
   
   const handleFilterByName = (event) => {
     setPage(0);
-    setFilterName(event.target.value);
+    if (event.target.name === 'itemSearch')    
+    setItemSearch(event.target.value);
+   
+
   };
 
 
@@ -186,6 +190,7 @@ function ProductPage() {
     setSelected(newSelected);
   };
 
+  
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
@@ -220,23 +225,21 @@ function ProductPage() {
             <form onSubmit={onSubmit} className="button-container">
               <div>
               <input 
-                  name="itemSearch"
-                  placeholder="Buscar"
-                  value={itemSearch}
-                  onChange={onChange}
-              />
+              name="itemSearch"
+              value={itemSearch}
+              onChange={onChange}
+          />
+
               </div>
               <div>
               <button type="submit" className="button-search-productpage"> Buscar </button>
               </div>
             </form>
             
-          </div>
-          {/* <dir/>
+            </div>
 
-          <dir/> */}
         <Card>
-          <ProductListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          {/* <ProductListToolbar name="itemSearch" numSelected={selected.length} value={itemSearch} onChange={handleFilterByName} /> */}
           {/* <Scrollbar> */}
           <TableContainer component={Paper} sx={{ minWidth: 700 }}>
           <Table sx={{ minWidth: 450 }} aria-label="simple table">

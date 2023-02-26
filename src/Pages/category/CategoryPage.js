@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CategoryList from './CategoryList.js';
 import Category from './Category'
 import { getListCategory, deleteCategory } from '../../Services/categoryService'
 import CategoryNew from "./CategoryNew.js";

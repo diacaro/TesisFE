@@ -13,7 +13,7 @@
         place-items: center;
         height: 60px;
         // font-size: 1.5rem;
-        font-weight: 700;
+        font-weight: 800;
         padding: 0rem 0rem;
         margin-left: 2rem;
         margin-top: 2rem;
@@ -23,6 +23,7 @@
 
     &__menu {
         position: relative;
+        margin-bottom: auto;
 
         &__item {
             display: flex;
@@ -30,6 +31,7 @@
             place-content: flex-start;
             padding: 1rem 2rem;
             font-size: 1.25rem;
+            
             font-weight: 500;
             color: #a7aeb8;
             transition: color 0.3s ease-in-out;
@@ -45,7 +47,7 @@
                     font-size: 1.75rem;
                 }
             }
-
+            
         }
 
         &__indicator {
@@ -62,6 +64,31 @@
             transition: 0.2s ease-in-out;
         }
     }
+
+    &__button__container{
+        
+        margin-left: 25%;
+        
+        
+            &__logout__button{
+        
+                background-color:  #4c68a5;
+                color: #ffffff;
+                border-radius: 10px;
+                bottom: 1rem;
+                border: 1px ;
+                border-color: none ;    
+                width: 110px;
+                cursor: pointer;
+                font-size: var(--md);
+                font-weight: bold;
+                height: 50px;
+                vertical-align: bottom;
+        
+            }
+    }
+
+    
 
     &__sidebar_toggle{
         display: none;

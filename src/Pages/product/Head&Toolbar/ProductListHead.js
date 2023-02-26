@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from 'prop-types';
 // @mui
 import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
@@ -16,7 +17,7 @@ const visuallyHidden = {
   clip: 'rect(0 0 0 0)',
 };
 
-StockListHead.propTypes = {
+ProductListHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,
@@ -26,7 +27,7 @@ StockListHead.propTypes = {
   onSelectAllClick: PropTypes.func,
 };
 
-export default function StockListHead({
+export default function ProductListHead({
   order,
   orderBy,
   rowCount,

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DeskList from './OrdenList.js';
 import Orden from './Orden'
 import { getListOrdenView, deleteOrden,getListOrden } from '../../Services/OrdenService'
 import DetallesPage from './../detalles/DetallesPage'
@@ -34,6 +33,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import DetallesPdf from "../detalles/DetallesPdf.js";
 
 // ------------------------color-------------------------
 
@@ -90,6 +90,12 @@ function OrdenPage () {
     setOrdenId (id);
 
   };
+  const onClickPdf = (id) => {
+    // navigate("/detalles/"+ id)
+    setOpenModal(true);
+    setOrdenId (id);
+
+  };
 
 
 
@@ -109,6 +115,7 @@ function OrdenPage () {
     <div className="table-page-container">
       <div className="table-page" >
         <h2>Ordenes</h2>
+        
         <div className="button-container">
           <form onSubmit={onSubmit}>
           </form>
@@ -143,6 +150,9 @@ function OrdenPage () {
                     </IconButton>
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error" />
+                    </IconButton>
+                    <IconButton size="small" aria-label="pdf"  onClick={DetallesPdf}>
+                      <DeleteIcon fontSize="small" color="success" />
                     </IconButton>
                   </TableCell>
 

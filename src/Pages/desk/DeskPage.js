@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DeskList from './DeskList.js';
 import Desk from './Desk'
 import { getListDeskView, deleteDesk } from '../../Services/deskService'
 import DeskNew from "./DeskNew";

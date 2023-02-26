@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import { useParams } from 'react-router-dom'
 
-import { findContractById } from '../../service/invoiceService'
-import { findByIdGreenhouse } from '../../service/greenhouseService'
-import { findOrderByContractId } from '../../service/orderService'
-import { listPaymentsByContractId } from '../../service/PaymentService'
-import { getListOrderProductByOrderId  } from '../../service/orderProductService'
-import { sendMailById } from '../../service/userService'
+import { findByIdOrden } from "../../Services/OrdenService";
+import {getDetalleByOrden} from "../../Services/detallesService"
+
 
 
 
@@ -15,11 +12,11 @@ import './DetallesPdf.css'
 
 import Logo from '../../img/logo-mediano.png'
 
-function ContractPdf() {
-    const { invoiceId } = useParams();
+function DetallesPdf(ordenId) {
+    const { detallesId } = useParams();
     const [greenhouse, setGreenhouse] = useState({})
     const [invoice, setContract] = useState({});
-    const [order, setOrder] = useState({});
+    const [orden, setOrden] = useState({});
     const [payments, setPayments] = useState([]);
     //const [product, setProduct] = useState({});
     const [productList, setProductList] = useState([]);
@@ -28,42 +25,21 @@ function ContractPdf() {
 
 
     useEffect(() => {
-        findContractById(invoiceId)
-            .then(dataContract => {
-                setContract(dataContract);
-                findByIdGreenhouse(dataContract.greenhouseId)
-                    .then(dataGreenhouse =>
-                        setGreenhouse(dataGreenhouse)
-                    )
-                listPaymentsByContractId(dataContract.id)
-                    .then(dataPayments =>
-                        setPayments(dataPayments)
-                    )
-                findOrderByContractId(dataContract.id)
-                    .then(dataOrder => {
-                        setOrder(dataOrder);
-                        getListOrderProductByOrderId(dataOrder.id)
-                        .then(dataOpList =>
-                          setProductList(dataOpList)
-                        )
-                    }
-                    )
+        getDetalleByOrden(ordenId).then(dataDetalles => {
+                setContract(dataDetalles);
+                    getDetalleByOrden(dataDetalles.id).then(dataOrder => {
+                        setOrden(dataOrder);
+                        
+                }
+                )
             }
             )
 
 
-    }, [invoiceId])
+    }, [detallesId])
   
 
     const createPDF = () => {
-
-        const pdfContract = new jsPDF("portrait", "pt", "a4");
-        const dataContract = document.querySelector("#pdf-invoice");
-        pdfContract.html(dataContract).then(() => {
-            pdfContract.save("invoice.pdf");
-        });
-    }
-    const createPDFOrder = () => {
         const pdf = new jsPDF("portrait", "pt", "a4");
         const data = document.querySelector("#pdf-order");
         pdf.html(data).then(() => {
@@ -72,15 +48,6 @@ function ContractPdf() {
 
     }
 
-    const sendMail = () => {
-        console.log(invoiceId)
-        setSending(true)
-        sendMailById(invoiceId)
-            .then(data => setSending(false))
-            .catch((error) => {
-                console.log(error)
-              });
-    };
 
     const onChange = (event) => {
         if (event.target.name === 'local')
@@ -92,17 +59,8 @@ function ContractPdf() {
     return (
         <div className="toPrinter">
             <div className="pdf__options">
-                <select value={info} name="local" onChange={onChange}>
-                    <option value=''>--Local</option>
-                    <option value='1'>Principal</option>
-                    <option value='2'>Sucursal</option>
-
-                </select>
-                <button onClick={createPDF} type="button">Descargar Contrato</button>
-                <button onClick={createPDFOrder} type="button">Descargar Orden</button>
-                <button onClick={sendMail} type="button">Enviar</button>
+                <button onClick={createPDF} type="button">Descargar Orden</button>
             </div>
-                {sending && (<p>Enviando correo...</p>)}
 
             <div id="pdf">
                 <div id="pdf-invoice" className="pdf__invoice">
@@ -121,48 +79,20 @@ function ContractPdf() {
                                 </>
                                 )
                             }
-                            <p style={{ color: 'red' }}>Nro. {invoiceId}</p>
+                            <p style={{ color: 'red' }}>Nro. {detallesId}</p>
                         </div>
                     </div>
                     <div className="pdf__greenhouse">
                         <p className="pdf__tittlegreenhouse">Contrato Cliente</p>
-                        <p><span>Cliente: </span><span>{greenhouse.name + ' ' + greenhouse.lastname}</span></p>
-                        <p><span>Fecha: </span><span>{invoice.created}</span></p>
-                        <p><span>CI:: </span><span>{greenhouse.nui}</span></p>
+                        <p><span>Cliente: </span><span>{orden.fullname}</span></p>
+                        <p><span>Fecha: </span><span>{orden.created}</span></p>
                         <p><span>Telf: </span><span>{greenhouse.cellphone}</span></p>
                     </div>
-                    <OrderPdf order={order} productList={productList} />
+                    <OrderPdf orden={orden} productList={productList} />
                     <div className="pdf__pay">
                         <p><span>Total</span><span>{invoice.total} </span></p>
-                        <p><span>Saldo</span><span>{invoice.balance} </span></p>
-                        <div className="pdf__paydetail">
-                            <span>Abonos</span>
-                            <p>
-                                {payments.map(payment =>
-                                    <span key={payment.id}>
-                                        {payment.payMethod.substring(0, 3)}:
-                                        {payment.valuePay}
-                                    </span>)
-                                }
-                            </p>
-                        </div>
                     </div>
 
-                    <div className="pdf__signature">
-                        <p><span>Fecha de entrega</span><span>{invoice.dateOfDelivery}</span></p>
-                        <p>
-                            <span>Firma</span>
-                            <span style={{ paddingTop: '12px' }}>__________________</span>
-                            <span>Estoy de acuerdo</span>
-                        </p>
-                        <p>
-                            <span>Estimados cliente</span>
-                            <span>La fecha maxima de entrega del tabajo es de 7 días laborables, en caso de cualquier inconveniente será conmunicado con anterioridad</span>
-                            <span>Las monturas  de marca registrada tienen un año de garantía exclusivamente por defecto de fábrica tornillos, desprendimiento de apliques y rayaduras del flex</span>
-                            <span>Los armazones económicos tienen 6 meses de garantía por defectos de fábrica y los armazones de marca de un año de garantía por defectos de fábrica</span>
-                            <span>Tiempo maximo de retiro: 1 mes, caso contrario no habrá devolución</span>
-                        </p>
-                    </div>
                 </div>
                 <div id="pdf-order" className="pdf__invoice">
                     <div className="pdf__header">
@@ -180,21 +110,14 @@ function ContractPdf() {
                                 )
                             }
 
-                            <p style={{ color: 'red' }}>Nro. {order.id}</p>
+                            <p style={{ color: 'red' }}>Nro. {orden.id}</p>
                         </div>
                     </div>
                     <div className="pdf__greenhouse">
                         <p className="pdf__tittlegreenhouse">Orden de trabajo</p>
-                        <p><span>Cliente: </span><span>{greenhouse.name + ' ' + greenhouse.lastname}</span></p>
-                        <p><span>Fecha: </span><span>{invoice.created}</span></p>
-                        <p><span>Orden:: </span><span>{order.id}</span></p>
-                        <p><span>Laboratorio: </span><span>{order.laboratory}</span></p>
-                    </div>
-                    <OrderPdf order={order} productList={productList} />
-                    <div className="pdf__signatureoptometra">
-                        <p><span>Observaciones:</span><span>{order.observaciones}</span></p>
-                        <p><span >Firma y sello optometra</span>
-                            <span style={{ paddingTop: '12px' }}>__________________</span></p>
+                        <p><span>Cliente: </span><span>{orden.fullname}</span></p>
+                        <p><span>Fecha: </span><span>{orden.created}</span></p>
+                        <p><span>Orden:: </span><span>{orden.id}</span></p>
                     </div>
                 </div>
             </div>
@@ -265,4 +188,4 @@ function OrderPdf({ order, productList }) {
     );
 }
 
-export default ContractPdf
+export default DetallesPdf

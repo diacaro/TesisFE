@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
@@ -32,14 +33,15 @@ const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-StockListToolbar.propTypes = {
+ProductListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
-  onFilterName: PropTypes.func,
+  onFilterName : PropTypes.func,
 };
 
 
-export default function StockListToolbar({ numSelected, filterName, onFilterName }) {
+export default function ProductListToolbar({ numSelected, filterName, onFilterName }) {
+
 
   return (
     <StyledRoot
@@ -58,7 +60,7 @@ export default function StockListToolbar({ numSelected, filterName, onFilterName
         <StyledSearch
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search product..."
+          placeholder="Buscar producto..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />

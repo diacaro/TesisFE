@@ -11,8 +11,8 @@ const listInvoice = async () => {
     return  data;
 }
 
-const findInvoiceById = async (invoiceId) => {
-    const response = await fetch(`${API}/details/${invoiceId}`,{
+const findInvoiceById = async (detallesId) => {
+    const response = await fetch(`${API}/details/${detallesId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -20,8 +20,8 @@ const findInvoiceById = async (invoiceId) => {
     return  data;
 }
 
-const findDetailsByInvoiceId = async (invoiceId) => {
-    const response = await fetch(`${API}/detail/${invoiceId}/invoice`,{
+const findDetailsByOrdenId = async (detallesId) => {
+    const response = await fetch(`${API}/detail/${detallesId}/orden`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -65,6 +65,6 @@ export {
     createDetail,
     updateInvoice,
     findInvoiceById,
-    findDetailsByInvoiceId   ,
+    findDetailsByOrdenId   ,
     deleteDetail
 }

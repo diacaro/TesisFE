@@ -1,7 +1,12 @@
-import { Box, Container, Toolbar } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Box, Button, Container, Toolbar } from '@mui/material';
+import React,{ useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './sidebar.scss';
+import { ProtectedRoute } from '../router/ProtectedRoute';
+
+
+
+
 
 const sidebarNavItems = [
     {
@@ -54,6 +59,7 @@ const sidebarNavItems = [
     },
 ]
 
+
 const Sidebar = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [stepHeight, setStepHeight] = useState(0);
@@ -75,6 +81,19 @@ const Sidebar = () => {
         const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
         setActiveIndex(curPath.length === 0 ? 0 : activeItem);
     }, [location]);
+
+    const navigate = useNavigate();
+   
+    const handlelogout =() =>{
+
+        localStorage.removeItem("acces");
+        navigate('/login', { replace: true });
+
+    };
+
+
+
+
     
     return <div className='sidebar'>
 
@@ -102,7 +121,16 @@ const Sidebar = () => {
                     </Link>
                 ))
             }
+
+
         </div>
+            <div className="sidebar__button__container">
+
+            <button  className="sidebar__button__container__logout__button" onClick={handlelogout}  >Logout</button>
+
+            </div>
+       
+
     </div>;
 }
 
