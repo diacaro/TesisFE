@@ -1,3 +1,9 @@
-export const Dashboard = () => 
+//rafc
 
-<h2>Dashboard</h2>;
+import React from 'react'
+
+export const dashboard = () => {
+  return (
+    <div>dashboard</div>
+  )
+}

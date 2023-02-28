@@ -130,8 +130,8 @@ function ProductNew() {
        if (data.status === 200) {
 
        } else {
-         setError(true);
          setSaving(false);
+         setError(true);
        }
      });
    };

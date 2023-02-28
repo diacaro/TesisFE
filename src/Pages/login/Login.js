@@ -19,33 +19,37 @@ import { AppContext } from "../../Context/AppContext";
 // ----------------------------------------------------------------------
 
 export default function Login() {
+
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const { setToken } = React.useContext(AppContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { setToken, setAuth } = React.useContext(AppContext);
+  // const [alerta, setAlerta] = useState({})
 
   const [showPassword, setShowPassword] = useState(false);
+   
+const handleClick = () => {
 
-  const handleClick = () => {
+  login( {
+    email,
+    password,
 
-    login( {
-      email:"luis@mail.com",
-      password:"luis"
-  
-    }).then(resp=>{ 
-      document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; path=/; samesite=strict`
-                const cokieActual = document.cookie; 
-                console.log(cokieActual)             
-                setToken(cokieActual)
-                getUser(jwt(cokieActual.replace('token=','')).sub)
-                .then(respuser =>                    
-                setUser(respuser.role)
-                )
-              })
+  }).then(resp=>{ 
+    document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; path=/; samesite=strict`
+              const cokieActual = document.cookie; 
+              console.log(cokieActual)             
+              setToken(cokieActual)
+              getUser(jwt(cokieActual.replace('token=','')).sub)
+              .then(respuser =>{                    
+                setAuth(respuser)
+                localStorage.setItem("acces", "true")
+            }
+              )
+            })
 
-    localStorage.setItem("acces", "true")
 
-    navigate('/', { replace: true });
-  };
+  navigate('/', { replace: true });
+};
 
 
 
@@ -64,6 +68,13 @@ export default function Login() {
     
   // });
 
+
+  const onChange = (event) => {
+    if (event.target.name === "email") setEmail(event.target.value);
+    if (event.target.name === "password") setPassword(event.target.value);
+
+  };
+
   return (
     
   <div className={styles.body}>  
@@ -74,23 +85,30 @@ export default function Login() {
 
         <p className={styles.text}>Bienvenido Mundiflora</p>
 
-        <form className={styles.login_form}>
+        <form 
+        className={styles.login_form}
+        >
 
             <input 
             type="text" 
             placeholder='Email'
             name='email'
+            value={email}
+            onChange={onChange}
             />
 
             <input 
              placeholder='Password'
-             type={showPassword ? 'text' : 'password'}
+             type={'Password'}
+             name='password'
+             value={password}
+             onChange={onChange}
              InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <button onClick={() => setShowPassword(!showPassword)} edge="end">
   
-                  </Button>
+                  </button>
                 </InputAdornment>
               ),
             }}
@@ -99,7 +117,7 @@ export default function Login() {
               Iniciar Sesión
               </Button> 
 
-            </form>
+        </form>
     </div>
   </div>
 

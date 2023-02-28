@@ -1,0 +1,17 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --very-light-pink: #383838;
+    --text-input-field: #dfdede;
+    --hospital-green: #0077DC;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+  }
+
+.category__actions {
+    color: blue;
+    background-color: darkgrey;
+
+    margin-left: 5px;
+}

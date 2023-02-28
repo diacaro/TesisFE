@@ -21,6 +21,7 @@ function AppProvider (props) {
     const [ordenId, setOrdenId] = useState('');
     const [role, setRole] = useState('');
     const [token, setToken] = useState('');
+    const [auth, setAuth] = useState(null);
 
     return(
         <AppContext.Provider value = {{
@@ -43,6 +44,8 @@ function AppProvider (props) {
             token, setToken,
             detailsId, setDetailsId,
             adding, setAdding, 
+            auth, setAuth,
+            // cerrarSesionAuth,
 
             
 

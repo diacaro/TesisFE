@@ -23,9 +23,18 @@ const login = async (credencials) => {
     });
     return await resp.json();
 }
+// const register = async (newUser) => {
+//     const resp = await fetch(`${API}/${model}/register`, {
+//         method: 'POST',
+//         body: JSON.stringify(newUser),
+//         headers: getHeadersAndToken()
+//     });
+//     return await resp.json();
+// }
 
 
 export {
     getUser,
-    login,   
+    login, 
+    // register,  
 }
