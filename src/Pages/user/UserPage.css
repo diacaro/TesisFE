@@ -13,16 +13,17 @@
     justify-content: center;
 }
 
-.table-page{  
+.table-user-page{  
     margin-top: 24px;
-    padding: 20px;
+    padding: 15px;
     width: 70vw;  
     background-color: #eeeeee; 
     
 }
 .button-container{   
     display: flex;
-    justify-content:flex-end;    
+    justify-content:flex-end; 
+    padding-bottom: 20px;   
 }
 .button-container input{
     
@@ -31,12 +32,12 @@
     border-radius: 8px;
     height: 20px;
     font-size: var(--md);
-    padding: 6px;
+    padding: 6px; 
     margin: 5px 5px;
     
 }
 
-.button-new-category {
+.button-new-user {
     background-color:  #89bd61;
     color: #ffffff;
     border-radius: 12px;

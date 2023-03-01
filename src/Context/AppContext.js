@@ -21,7 +21,7 @@ function AppProvider (props) {
     const [ordenId, setOrdenId] = useState('');
     const [role, setRole] = useState('');
     const [token, setToken] = useState('');
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useState({});
 
     return(
         <AppContext.Provider value = {{

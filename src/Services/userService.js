@@ -23,18 +23,27 @@ const login = async (credencials) => {
     });
     return await resp.json();
 }
-// const register = async (newUser) => {
-//     const resp = await fetch(`${API}/${model}/register`, {
-//         method: 'POST',
-//         body: JSON.stringify(newUser),
-//         headers: getHeadersAndToken()
-//     });
-//     return await resp.json();
-// }
+const register = async (newUser) => {
+    const resp = await fetch(`${API}/${model}/register`, {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: getHeadersAndToken()
+    });
+    return await resp.json();
+}
+
+const deleteUser = async (userId) => {
+    const respo = await fetch(`${API}${model}/user/${userId}`, {
+        method: 'DELETE',
+        headers: getHeadersAndToken()              
+    });
+    return await respo.json();
+}
 
 
 export {
     getUser,
     login, 
-    // register,  
+    register,
+    deleteUser,  
 }

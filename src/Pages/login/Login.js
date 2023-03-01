@@ -41,8 +41,8 @@ const handleClick = () => {
               setToken(cokieActual)
               getUser(jwt(cokieActual.replace('token=','')).sub)
               .then(respuser =>{                    
-                setAuth(respuser)
                 localStorage.setItem("acces", "true")
+                setAuth(respuser)
             }
               )
             })

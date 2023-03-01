@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 
-import { createCategory } from "../../Services/categoryService";
+import { register } from "../../Services/userService";
 import "./UserNew.css";
 
 import Button from "@mui/material/Button";
@@ -23,15 +23,20 @@ function UserNew({ open }) {
     setCategoryIdEdit,
     setUpdating,
   } = React.useContext(AppContext);
-  const [categoria, setCategory] = useState("");
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [error, setError] = useState(false);
   
   const onClickSave = () => {
-    if (!categoria === " ") {
+    if (!role === " ") {
       setError(true);
     } else {
-      createCategory({
-        categoria,
+      register({
+        email,
+        password,
+        role,
       }).then((data) => {
         setOpenModal(false);
         setUpdating(false);
@@ -39,6 +44,11 @@ function UserNew({ open }) {
     }
   };
   
+  const roleoption = [
+    {label: 'USER', value: 'USER'},
+    {label: 'ADMIN', value: 'ADMIN'},
+    {label: 'SUPERADMIN', value: 'SUPERADMIN'},
+  ]
 
   const onClickClose = () => {
     setOpenModal(false);
@@ -46,7 +56,9 @@ function UserNew({ open }) {
   };
 
   const onChange = (event) => {
-    if (event.target.name === "categoria") setCategory(event.target.value);
+    if (event.target.name === "email") setEmail(event.target.value);
+    if (event.target.name === "password") setPassword(event.target.value);
+    if (event.target.name === "role") setRole(event.target.value);
 
   };
   const handleClose = () => {
@@ -54,26 +66,61 @@ function UserNew({ open }) {
   };
 
   return (
-    <div>
+    <div className="modal"> 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Nueva Category </DialogTitle>
-        <DialogContent>
+        <DialogTitle>Nueva Usuario </DialogTitle>
+        <div className="modal__container">
+        <DialogContent  >
           <DialogContentText>
-            Ingrese la nueva categoria
+            Ingrese el nuevo usuario y un rol
           </DialogContentText>
+          
           <TextField
+            className="modal__input_name "
             autoFocus
             margin="dense"
-            id="categoria"
-            label="Categoria"
-            type="text"
-            name="categoria"
+            id="email"
+            label="Email"
+            type="email"
+            name="email"
             fullWidth
             onChange={onChange}
             variant="standard"
-          />
+            />
+
+          <TextField
+            className="modal__input_name "
+            autoFocus
+            margin="dense"
+            id="password"
+            label="password"
+            type="password"
+            name="password"
+            fullWidth
+            onChange={onChange}
+            variant="standard"
+            />
+          
+          <FormControl fullWidth >
+           <InputLabel id="demo-select-small"> Rol</InputLabel>
+            <Select 
+              className="modal__select"
+              labelId="demo-controlled-open-select"
+              size="small"
+              value={role}
+              name="role" 
+              id="uncontrolled-native"         
+              onChange={onChange}
+            >
+              <MenuItem value="USER">USER</MenuItem>
+              <MenuItem value="ADMIN">ADMIN</MenuItem>
+              <MenuItem value="SUPERADMIN">SUPERADMIN</MenuItem>
+            </Select>
+          
+          </FormControl>
 
         </DialogContent>
+              </div>
         <DialogActions>
           <Button onClick={handleClose}>Cerrar</Button>
           <Button onClick={onClickSave}>Guardar</Button>

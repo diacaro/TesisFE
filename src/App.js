@@ -32,7 +32,15 @@ function App() {
       </Routes>
           <div className="flex">
             <Routes>
-              <Route path="/" element={ <AppLayout />}>
+              <Route 
+                path="/" 
+                element={
+                    <ProtectedRoute
+                      isAllowed={auth}
+                    >
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }>
                 <Route
                   path="/products"
                   element={
