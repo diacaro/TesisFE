@@ -1,5 +1,4 @@
- const API="http://localhost:8081"
- //const API="https://practice-suda.herokuapp.com" 
+ const API="http://localhost:8081/api/v1/auth"
  export default API
 
  

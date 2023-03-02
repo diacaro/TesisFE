@@ -16,8 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function CustomerNew({ open }) {
-  const { searchCustomer, setSearchCustomer } = React.useContext();
-  const { setCustomerId, setOpenModal, setUpdating, customerNewInvoice, setCustomerNewInvoice } = React.useContext(AppContext);  
+  const { searchCustomer, setCustomerId, setOpenModal, setUpdating, customerNewInvoice, setCustomerNewInvoice, setSearchCustomer } = React.useContext(AppContext);  
   const [customer, setCustomer] = useState({ fullname: '',phone: '', address: ''});
   const [error, setError] = useState(false);
   const [fullname, setFullname] = useState('');

@@ -3,6 +3,7 @@ import React,{ useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './sidebar.scss';
 import { ProtectedRoute } from '../router/ProtectedRoute';
+import { AppContext } from "../../Context/AppContext";
 
 
 
@@ -60,12 +61,14 @@ const sidebarNavItems = [
 ]
 
 
+
 const Sidebar = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [stepHeight, setStepHeight] = useState(0);
     const sidebarRef = useRef();
     const indicatorRef = useRef();
     const location = useLocation();
+    const { setToken, setAuth } = React.useContext(AppContext);
 
     useEffect(() => {
         setTimeout(() => {
@@ -85,12 +88,11 @@ const Sidebar = () => {
     const navigate = useNavigate();
    
     const handlelogout =() =>{
-
-        localStorage.removeItem("acces");
+        setToken(null);
+        setAuth('');
         navigate('/login', { replace: true });
 
     };
-
 
 
 
