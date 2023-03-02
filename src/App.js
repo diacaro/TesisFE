@@ -96,8 +96,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-              </Route>
-
                 <Route
                   path="/pdf"
                   element={
@@ -106,6 +104,15 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                  <Route
+                    path="/user"
+                    element={
+                      <ProtectedRoute isAllowed={auth.role == "SUPERADMIN"}>
+                        <UserPage />
+                      </ProtectedRoute>
+                    }
+                  />
+              </Route>
             </Routes>
           </div>
     </BrowserRouter>

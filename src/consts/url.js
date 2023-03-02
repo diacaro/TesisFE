@@ -1,4 +1,4 @@
- const API="http://localhost:8081/api/v1/auth"
+ const API="http://localhost:8081"
  export default API
 
  
