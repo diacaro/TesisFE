@@ -21,6 +21,7 @@ import AppLayout from "./Components/layout/AppLayout";
 import Login from "./Pages/login/Login";
 import { ProtectedRoute } from "./Components/router/ProtectedRoute";
 import { AppContext } from "./Context/AppContext";
+import DetallesPdf from "./Pages/detalles/DetallesPdf";
 
 function App() {
   const { auth } = React.useContext(AppContext);
@@ -95,16 +96,16 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+              </Route>
 
                 <Route
-                  path="/user"
+                  path="/pdf"
                   element={
-                    <ProtectedRoute isAllowed={auth.role == "SUPERADMIN"}>
-                      <UserPage />
+                    <ProtectedRoute isAllowed={auth.role == "USER" || "ADMIN" || "SUPERADMIN"}>
+                      <DetallesPdf />
                     </ProtectedRoute>
                   }
                 />
-              </Route>
             </Routes>
           </div>
     </BrowserRouter>
