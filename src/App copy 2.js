@@ -34,19 +34,13 @@ function App() {
       
           <div className="flex">
             <Routes>
-              <Route path="/" element={
-              <ProtectedRoute 
-              redirectTo="/login"
-              isAllowed={!!auth && auth.role == "USER" || "ADMIN" || "SUPERADMIN"}> 
-                <AppLayout /> 
-              </ProtectedRoute>}>
+              <Route path="/" element={<AppLayout />}>
              
                 <Route
                   path="/products"
                   element={
                     <ProtectedRoute
-                    redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "ADMIN" || "SUPERADMIN"}
                     >
                       <ProductPage />
                     </ProtectedRoute>
@@ -56,8 +50,7 @@ function App() {
                   path="/invernadero"
                   element={
                     <ProtectedRoute
-                    // redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "ADMIN" || "SUPERADMIN"}
                     >
                       <GreenhousePage />
                     </ProtectedRoute>
@@ -67,8 +60,7 @@ function App() {
                   path="/category"
                   element={
                     <ProtectedRoute
-                    // redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "ADMIN" || "SUPERADMIN"}
                     >
                       <CategoryPage />
                     </ProtectedRoute>
@@ -77,10 +69,8 @@ function App() {
                 <Route
                   path="/mesa"
                   element={
-                    
                     <ProtectedRoute
-                    // redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "ADMIN" || "SUPERADMIN"}
                     >
                       <DeskPage />
                     </ProtectedRoute>
@@ -90,8 +80,7 @@ function App() {
                   path="/customers"
                   element={
                     <ProtectedRoute
-                    // redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "ADMIN" || "SUPERADMIN"}
                     >
                       <CustomerPage />
                     </ProtectedRoute>
@@ -102,8 +91,7 @@ function App() {
                   path="/orden"
                   element={
                     <ProtectedRoute
-                      // redirectTo="/login"
-                      isAllowed={!!auth && auth.role == "USER" || "ADMIN" || "SUPERADMIN"}
+                      isAllowed={auth.role == "USER" || "ADMIN" || "SUPERADMIN"}
                     >
                       <OrdenPage />
                     </ProtectedRoute>
@@ -112,9 +100,7 @@ function App() {
                 <Route
                   path="/pdf"
                   element={
-                    <ProtectedRoute 
-                    // redirectTo="/login"
-                    isAllowed={!!auth && auth.role == "USER" || "ADMIN" || "SUPERADMIN"}>
+                    <ProtectedRoute isAllowed={auth.role == "USER" || "ADMIN" || "SUPERADMIN"}>
                       <DetallesPdf />
                     </ProtectedRoute>
                   }
@@ -122,9 +108,7 @@ function App() {
                   <Route
                     path="/user"
                     element={
-                      <ProtectedRoute
-                      // redirectTo="/login"
-                       isAllowed={!!auth && auth.role =="SUPERADMIN"}>
+                      <ProtectedRoute isAllowed={auth.role == "SUPERADMIN"}>
                         <UserPage />
                       </ProtectedRoute>
                     }

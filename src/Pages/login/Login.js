@@ -36,7 +36,7 @@ const handleClick = () => {
 
   }).then(resp=>{ 
     console.log(resp)
-    document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; path=/; samesite=strict`
+    document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
               const cokieActual = document.cookie; 
               console.log(cokieActual)             
               setToken(cokieActual)
@@ -44,12 +44,14 @@ const handleClick = () => {
               .then(respuser =>{                    
               setAuth(respuser)
             }
-              )
-            })
+            )
+          })
+          
+          
+      navigate('/'); 
 
-
-  navigate('/', { replace: true });
 };
+
 
 
 
@@ -102,16 +104,7 @@ const handleClick = () => {
              type={'Password'}
              name='password'
              value={password}
-             onChange={onChange}
-             InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <button onClick={() => setShowPassword(!showPassword)} edge="end">
-  
-                  </button>
-                </InputAdornment>
-              ),
-            }}
+             onChange={onChange}       
             />
               <Button  type="submit" variant="contained" onClick={handleClick}>
               Iniciar Sesión
