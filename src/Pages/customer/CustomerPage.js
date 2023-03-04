@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getListCustomer, listByNameCustomer, deleteCustomer } from '../../Services/customerService'
+import { getListCustomer, listByNameCustomer, deleteCustomer, searchCustomer } from '../../Services/customerService'
 import CustomerNew from "./CustomerNew.js";
 import CustomerUpdate from './CustomerUpdate'
 import { AppContext } from "../../Context/AppContext";
@@ -48,18 +48,18 @@ function CustomerPage() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    // if (itemSearch)
-    //   listByNameCustomer(itemSearch).then(data => {
-    //     setCustomers(data);
+    if (itemSearch.trim().length > 0){
 
-    //   }
-    //   );
-    // else
-    //   getListCustomer().then(data => {
-    //     setCustomers(data);
+      searchCustomer(itemSearch).then (data=> 
+        setCustomers(data)
+        ) 
+      } else{
+        getListCustomer().then(data => {
+          setCustomers(data);
+          setLoading(false);
+        })
 
-    //   }
-    //   );
+      }
 
   }
   const onChange = (event) => {
@@ -71,6 +71,7 @@ function CustomerPage() {
     setUpdating(true);
     setOpenModal(true);
     setCustomerIdEdit(clienteId);
+
   }
 
   const onClickDelete = (clienteId) => {
@@ -148,7 +149,7 @@ function CustomerPage() {
         {!!openModal &&
           (
             <Modal>
-              {updating ? <CustomerUpdate Idclientes={customerIdEdit} /> : <CustomerNew open={openModal} />}
+              {updating ? <CustomerUpdate customerId={customerIdEdit} /> : <CustomerNew open={openModal} />}
             </Modal>
           )
         }

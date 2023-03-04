@@ -21,7 +21,8 @@ function AppProvider (props) {
     const [ordenId, setOrdenId] = useState('');
     const [role, setRole] = useState('');
     const [token, setToken] = useState('');
-    const [auth, setAuth] = useState({});
+    console.log(localStorage.getItem("access") + "access")
+    const [auth, setAuth] = useState(localStorage.getItem("access")? localStorage.getItem("access"):{} );
 
     return(
         <AppContext.Provider value = {{

@@ -21,18 +21,14 @@ function DetallesPdf(ordenId) {
     const [payments, setPayments] = useState([]);
     //const [product, setProduct] = useState({});
     const [productList, setProductList] = useState([]);
+    const [detalles, setDetalles] = useState([]);
     const [info, setInfo] = useState('');
     const [sending, setSending] = useState(false);
 
 
     useEffect(() => {
         getDetalleByOrden(ordenId).then(dataDetalles => {
-                setContract(dataDetalles);
-                    getDetalleByOrden(dataDetalles.id).then(dataOrder => {
-                        setOrden(dataOrder);
-                        
-                }
-                )
+            setDetalles(dataDetalles);
             }
             )
 

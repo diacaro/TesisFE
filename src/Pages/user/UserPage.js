@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import User from './User'
-import { getUser, deleteUser } from "../../Services/userService";
+import { getUser, deleteUser, getUserData } from "../../Services/userService";
 import UserNew from "./UserNew";
 
 import { AppContext } from "../../Context/AppContext";
@@ -34,11 +34,13 @@ function UserPage() {
   const { openModal, setOpenModal, deskIdEdit, updating, setDeskIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
 
+
+  console.log("ingresando")
   useEffect(() => {
-    getUser().then(data => {
-      setUser(data);
+    getUserData().then(data => {
+      setUsers(data);
       setLoading(false);
     }
     );
@@ -55,8 +57,8 @@ function UserPage() {
   const onClickDelete = (userId) => {
     deleteUser(userId).then( dataDel =>
       {
-        getUser().then(data => {
-          setUser(data);
+        getUserData().then(data => {
+          setUsers(data);
           setLoading(false);
         })
 
@@ -89,9 +91,9 @@ function UserPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {user.map((row) => (
+              {users.map((row) => (
                 <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell align="left">{row.user}</TableCell>
+                  <TableCell align="left">{row.email}</TableCell>
                   <TableCell align="left">{row.role}</TableCell>
                   <TableCell align="left" >
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>

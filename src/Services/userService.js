@@ -2,6 +2,7 @@
 import API from '../consts/url'
 import getHeadersAndToken from '../consts/headersToken'
 const model = 'api/v1/auth'
+const apiUser = `${API}/users`
 
 
 const getUser = async (email) => {
@@ -13,13 +14,27 @@ const getUser = async (email) => {
 //    console.log(data)
     return  data;
 }
+const getUserData = async () => {
+    const response = await fetch(`${apiUser}`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
 
 
 const login = async (credencials) => {
+    console.log(credencials)
     const resp = await fetch(`${API}/${model}/authenticate`, {
         method: 'POST',
         body: JSON.stringify(credencials),
-        headers: getHeadersAndToken()
+        headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Content-type': 'application/json'
+    
+        }
     });
     return await resp.json();
 }
@@ -27,13 +42,17 @@ const register = async (newUser) => {
     const resp = await fetch(`${API}/${model}/register`, {
         method: 'POST',
         body: JSON.stringify(newUser),
-        headers: getHeadersAndToken()
+        headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Content-type': 'application/json'
+    
+        }
     });
     return await resp.json();
 }
 
 const deleteUser = async (userId) => {
-    const respo = await fetch(`${API}${model}/user/${userId}`, {
+    const respo = await fetch(`${apiUser}/delete/${userId}`, {
         method: 'DELETE',
         headers: getHeadersAndToken()              
     });
@@ -46,4 +65,5 @@ export {
     login, 
     register,
     deleteUser,  
+    getUserData,
 }

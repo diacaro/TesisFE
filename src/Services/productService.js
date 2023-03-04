@@ -21,6 +21,15 @@ const getListProductView = async () => {
 //    console.log(data)
     return  data;
 }
+const searchProducts= async (productos) => {
+    const response = await fetch(`${API}/productos/${productos}/search`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
 
 const getProductById = async (productId) => {
     // const response = await fetch(`${API}/${model}/${productId}`,{
@@ -122,5 +131,6 @@ export {
     deleteProduct,
     // getProductByCode
     getListProductView,
+    searchProducts,
 
 }

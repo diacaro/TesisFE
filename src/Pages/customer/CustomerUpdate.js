@@ -4,6 +4,7 @@ import { findByIdCustomer, updateCustomer } from '../../Services/customerService
 import './CustomerUpdate.css'
 
 function CustomerUpdate({ customerId }) {
+
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
     const [customer, setCustomer] = useState({fullname: '', phone: '', address: ''});

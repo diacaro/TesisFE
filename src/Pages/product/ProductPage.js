@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getListProductDesk, getListProductView, listByCodeProduct, deleteProduct } from '../../Services/productService'
+import { getListProductDesk, getListProductView, listByCodeProduct, deleteProduct, searchProducts } from '../../Services/productService'
 import ProductNew from "./ProductNew2.js";
 import ProductUpdate from './ProductUpdate'
 import { filter } from 'lodash';
@@ -21,7 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
 import './ProductPage.css'
-import { Card, Checkbox, Container, InputAdornment, TablePagination, Toolbar, Tooltip, Typography, OutlinedInput } from "@mui/material";
+import { Card, Checkbox, Container, InputAdornment, TablePagination, Toolbar, Tooltip, Typography, OutlinedInput, TextField } from "@mui/material";
 import { styled, alpha } from '@mui/material/styles';
 import StockListHead from "./Head&Toolbar/ProductListHead";
 import ProductListToolbar from "./Head&Toolbar/ProductListToolbar";
@@ -136,6 +136,18 @@ function ProductPage() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (itemSearch.trim().length > 0){
+
+      searchProducts(itemSearch).then (data=> 
+        setProducts(data)
+        ) 
+      } else{
+        getListProductView().then(data => {
+          setProducts(data);
+          setLoading(false);
+        })
+
+      }
 
 
   }
@@ -223,14 +235,18 @@ function ProductPage() {
             
             <div className="button-container">
             <form onSubmit={onSubmit} className="button-container">
-              <div>
-              <input 
-              name="itemSearch"
-              value={itemSearch}
-              onChange={onChange}
-          />
 
-              </div>
+
+              <TextField 
+              id="outlined-basic" 
+              label="Buscar"
+              name="itemSearch"
+              value={itemSearch} 
+              onChange= {onChange}
+              variant="outlined" 
+              />
+
+
               <div>
               <button type="submit" className="button-search-productpage"> Buscar </button>
               </div>

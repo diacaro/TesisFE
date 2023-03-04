@@ -30,6 +30,15 @@ const getListOrdenView = async () => {
 //    console.log(data)
     return  data;
 }
+const getOrdenCLiente = async (ordenId) => {
+    const response = await fetch(`${API}/orden/${ordenId}/cliente`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
 
 
 const createOrden = async (orden) => {
@@ -77,6 +86,7 @@ export {
     updateOrden,
     deleteOrden,
     getListOrdenView,
-    getListOrdenClientes
+    getListOrdenClientes,
+    getOrdenCLiente,
     
 }

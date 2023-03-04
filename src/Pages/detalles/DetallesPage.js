@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {getListDetallesView, getListDetalles, listByCodeDetalles,deleteDetalles,createDetalles,getDetalleByOrden} from "../../Services/detallesService";
 import { getListProduct } from "../../Services/productService";
-import { getListOrdenView, getListOrden } from '../../Services/OrdenService'
+import { getListOrdenView, getListOrden, getOrdenCLiente } from '../../Services/OrdenService'
 import DetallesNew from "./DetallesNew.js";
 import DetallesUpdate from "./DetallesUpdate";
 import { useParams } from "react-router-dom";
@@ -94,10 +94,11 @@ function DetallesPage({ordenId}) {
     console.log(ordenId);
     getDetalleByOrden(ordenId).then((data) => 
     setDetalles(data));
-    getListOrdenView(ordenId).then(data => {
+    getOrdenCLiente(ordenId).then(data => {
       setOrden(data);
       setLoading(false);
     }
+
     );
 
   }, []);
@@ -148,8 +149,8 @@ function DetallesPage({ordenId}) {
       </div>
         <h2 className="details-page-tittle">Detalles</h2>
         <div className="details-page-tittle" >
-        <p><span>Cliente: </span><span>{orden.fullname}</span></p>
-        <p><span>Fecha: </span><span>{orden.createAt}</span></p>
+        <p><span>Cliente: </span><span>{orden.clientes}</span></p>
+        <p><span>Fecha: </span><span>{orden.createAt.substring(0,10)}</span></p>
 
         </div>
         <form onSubmit={onSubmit}>

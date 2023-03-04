@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 // Formik & yup------------------------------------------------
 import {useFormik} from 'formik'
@@ -23,52 +23,85 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken, setAuth } = React.useContext(AppContext);
+  const { setToken, setAuth , auth } = React.useContext(AppContext);
   // const [alerta, setAlerta] = useState({})
 
   const [showPassword, setShowPassword] = useState(false);
    
 const handleClick = () => {
 
-  login( {
-    email,
-    password,
+  // login( {
+  //   email,
+  //   password,
 
-  }).then(resp=>{ 
-    console.log(resp)
-    document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
-              const cokieActual = document.cookie; 
-              console.log(cokieActual)             
-              setToken(cokieActual)
-              getUser(jwt(cokieActual.replace('token=','')).sub)
-              .then(respuser =>{                    
-              setAuth(respuser)
-            }
-            )
-          })
+  // }).then(resp=>{ 
+  //   console.log(resp)
+  //   document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
+  //             const cokieActual = document.cookie; 
+  //             console.log(cokieActual)             
+  //             setToken(cokieActual)
+  //             getUser(jwt(cokieActual.replace('token=','')).sub)
+  //             .then(respuser =>{                    
+  //             setAuth(respuser)
+  //           }
+  //           )
+  //         })
           
           
-      navigate('/'); 
+  //     navigate('/'); 
 
 };
 
 
 
-
-  // const  formik  = useFormik({
-  //   initialValues: {
-  //     email: '',
-  //     password: '',
-  //   },
-
-  //   validationSchema: Yup.object({
-  //     email: Yup.email().required('Correo incorrecto'),
-  //     password: Yup.password().required("Contraseña incorrecta"),
-
-      
-  //     }),
+const  formik  = useFormik({
+  initialValues: {
+    email: '',
+    password: '',
+  },
+  
+  validationSchema: Yup.object({
+    email: Yup.string().email('Correo incorrecto')
+    .required('El mail es obligatorio'),
+    password: Yup.string().required("Contraseña incorrecta"),
     
-  // });
+    
+  }),
+  
+  onSubmit : (values) => {
+        
+        login( {
+          email : values.email,
+          password : values.password,
+          
+        }).then(resp=>{ 
+          console.log(auth)
+          if (auth) {
+          console.log(resp)
+          document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
+                    const cokieActual = document.cookie; 
+                    console.log(cokieActual)             
+                    setToken(cokieActual)
+                    getUser(jwt(cokieActual.replace('token=','')).sub)
+                    .then(respuser =>{                    
+                    setAuth(respuser);
+                    localStorage.setItem("access","ADMIN");
+                    navigate('/'); 
+                    }
+                    )
+                  }
+                  else {
+                    <Navigate to="/login" />
+                    
+                  }
+                  })
+                  
+                
+
+        
+      }
+     
+  });
 
 
   const onChange = (event) => {
@@ -88,6 +121,7 @@ const handleClick = () => {
         <p className={styles.text}>Bienvenido Mundiflora</p>
 
         <form 
+        onSubmit={formik.handleSubmit}
         className={styles.login_form}
         >
 
@@ -95,18 +129,22 @@ const handleClick = () => {
             type="text" 
             placeholder='Email'
             name='email'
-            value={email}
-            onChange={onChange}
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.errors.email}
+            // helperText={formik.errors.email}
             />
 
             <input 
              placeholder='Password'
              type={'Password'}
              name='password'
-             value={password}
-             onChange={onChange}       
+             value={formik.values.password}
+             onChange={formik.handleChange}     
+             error={formik.errors.password}
+            //  helperText={formik.errors.password}  
             />
-              <Button  type="submit" variant="contained" onClick={handleClick}>
+              <Button  type="submit" variant="contained"  onSubmit={formik.handleSubmit}>
               Iniciar Sesión
               </Button> 
 

@@ -14,6 +14,15 @@ const getListCustomer = async () => {
 //    console.log(data)
     return  data;
 }
+const searchCustomer = async (clientes) => {
+    const response = await fetch(`${API}/clientes/${clientes}/search`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
 
 const createCustomer = async (clientes) => {
 
@@ -80,6 +89,7 @@ export {
     updateCustomer,
     listByNameCustomer,
     // listByNuiCustomer,
-    deleteCustomer
+    deleteCustomer,
+    searchCustomer
     
 }
