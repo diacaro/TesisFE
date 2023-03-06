@@ -28,31 +28,6 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
    
-const handleClick = () => {
-
-  // login( {
-  //   email,
-  //   password,
-
-  // }).then(resp=>{ 
-  //   console.log(resp)
-  //   document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
-  //             const cokieActual = document.cookie; 
-  //             console.log(cokieActual)             
-  //             setToken(cokieActual)
-  //             getUser(jwt(cokieActual.replace('token=','')).sub)
-  //             .then(respuser =>{                    
-  //             setAuth(respuser)
-  //           }
-  //           )
-  //         })
-          
-          
-  //     navigate('/'); 
-
-};
-
-
 
 const  formik  = useFormik({
   initialValues: {
