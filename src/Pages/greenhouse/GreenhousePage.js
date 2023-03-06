@@ -70,7 +70,7 @@ function GreenhousePage() {
   }
   
   const onClickUpdate = (id) => {
-    console.log(id)
+
     setUpdating(true);
     setOpenModal(true);
     setGreenhouseIdEdit(id);

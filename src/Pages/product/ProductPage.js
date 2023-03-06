@@ -220,7 +220,7 @@ function ProductPage() {
   return (
     <div className="product-page-container">
       <div className="product-page">
-      <h2>Productos</h2>
+      <h2 >Productos</h2>
 
       <Container>
           <div className="button-container" >
@@ -284,18 +284,19 @@ function ProductPage() {
             </TableHead> */}
             <TableBody >
               {filteredStock.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                const { nombre} = row;
-                const selectedProduct = selected.indexOf(nombre) !== -1;
+                const { nombre,categoria,clima,mesa,invernadero,sede,cantidad} = row;
+                const selectedProduct = selected.indexOf(nombre , categoria) !== -1;
                 return (
                 <TableRow
-                hover key={row.id}
+                // hover key={row.id}
+                key={row.id}
                 role="checkbox"
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 tabIndex={-1}
                 selected={selectedProduct}
                 >
                   <TableCell padding="checkbox">
-                    <Checkbox checked={selectedProduct} onChange={(event) => handleClick(event, nombre)} />
+                    <Checkbox checked={selectedProduct} onChange={(event) => handleClick(event, nombre,categoria,clima,mesa,invernadero,sede,cantidad)} />
                   </TableCell>
                   <TableCell align="left">{row.nombre}</TableCell>
                   <TableCell align="center">{row.clima}</TableCell>

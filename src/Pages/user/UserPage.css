@@ -8,15 +8,15 @@
     --md: 16px;
     --lg: 18px;
   }
-.table-page-container{
+.user-page-container{
     display: flex;
     justify-content: center;
 }
 
-.table-user-page{  
+.user-user-page{  
     margin-top: 24px;
-    padding: 15px;
-    width: 70vw;  
+    padding: 20px;
+    width: 60vw;  
     background-color: #eeeeee; 
     
 }

@@ -8,17 +8,22 @@
     --md: 16px;
     --lg: 18px;
   }
-.table-page-container{
+.desk-page-container{
     display: flex;
     justify-content: center;
 }
 
-.table-page{  
+.desk-page{  
     margin-top: 24px;
     padding: 20px;
-    width: 70vw;  
+    width: 60vw;  
     background-color: #eeeeee; 
     
+}
+.desk-title-page{
+
+margin-left: auto;
+
 }
 .button-container{   
     display: flex;
@@ -36,14 +41,17 @@
     
 }
 
-.button-new-table {
-    background-color: var(--white);
-    border-radius: 8px;
-    border: 1px solid;
-    border-color: var(--hospital-green);    
+.button-new-deskpage{
+    background-color:  #89bd61;
+    color: #ffffff;
+    margin-top: 80px;
+    border-radius: 12px;
+    bottom: 1rem;
+    border: 1px ;
+    border-color: none ;    
     width: 110px;
     cursor: pointer;
     font-size: var(--md);
     font-weight: bold;
     height: 40px;
-  }
+}

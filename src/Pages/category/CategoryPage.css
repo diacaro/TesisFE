@@ -8,23 +8,39 @@
     --md: 16px;
     --lg: 18px;
   }
-.table-page-container{
+.category-page-container{
     display: flex;
     justify-content: center;
 }
 
-.table-page{  
+.category-page{  
     margin-top: 24px;
     padding: 20px;
-    width: 70vw;  
+    width: 60vw;  
     background-color: #eeeeee; 
+    /* height: auto; */
     
+}
+
+.category-title-page{
+
+    margin-left: auto;
+
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+    margin-left: 250px;
+    margin-top: 20px;
+
+
 }
 .button-container{   
     display: flex;
     justify-content:flex-end;    
 }
-.button-container input{
+/* .button-container input{
     
     background-color: white;
     border: none;
@@ -34,11 +50,12 @@
     padding: 6px;
     margin: 5px 5px;
     
-}
+} */
 
 .button-new-category {
     background-color:  #89bd61;
     color: #ffffff;
+    margin-top: 80px;
     border-radius: 12px;
     bottom: 1rem;
     border: 1px ;

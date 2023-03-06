@@ -15,9 +15,10 @@
 
 .product-page{  
     margin-top: 24px;
-    padding: 10px 0px 0px 5px;
-    width: 0vw;  
+    padding: 20px;
+    width: auto;  
     background-color: #eeeeee; 
+    height: auto;
     
 }
 .button-container{   

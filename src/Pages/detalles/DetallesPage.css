@@ -13,12 +13,12 @@
     justify-content: center;
 }
 
-.product-page{  
+.details-page{  
     margin-top: 24px;
     padding: 20px;
-    width: 70vw;  
+    width: auto;  
     background-color: #eeeeee; 
-    height: 500px;
+    height: auto;
     
 }
 

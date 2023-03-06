@@ -56,6 +56,7 @@ const sidebarNavItems = [
     section: "orden",
     roles:["USER","ADMIN", "SUPERADMIN"]
   },
+
   {
     display: "User",
     icon: <i class="bx bx-user-circle"></i>,
@@ -102,7 +103,7 @@ const Sidebar = () => {
       });
     
     setToken(null);
-    setAuth({});
+    setAuth('');
     
     navigate("/login", { replace: true });
   };

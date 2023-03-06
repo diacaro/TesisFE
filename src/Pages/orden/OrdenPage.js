@@ -25,6 +25,7 @@ import ListIcon from '@mui/icons-material/List';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -91,9 +92,8 @@ function OrdenPage () {
 
   };
   const onClickPdf = (id) => {
-    // navigate("/detalles/"+ id)
-    setOpenModal(true);
-    setOrdenId (id);
+    navigate(`/pdf/${id}`)
+
 
   };
 
@@ -112,18 +112,22 @@ function OrdenPage () {
     }
 
   return (
-    <div className="table-page-container">
-      <div className="table-page" >
+    <div className="order-page-container">
+      <div className="order-page" >
+
+        <div className="order-title-page">
+
         <h2>Ordenes</h2>
+        </div>
         
         <div className="button-container">
           <form onSubmit={onSubmit}>
-          </form>
           
           <button variant="outlined" className="button-new-ordenpage" onClick={handleClickOpen}>
             + Nuevo
           </button>
 
+          </form>
         </div>
           
         <TableContainer   component={Paper}  >
@@ -151,9 +155,9 @@ function OrdenPage () {
                     <IconButton size="small" aria-label="delete"  onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" color="error" />
                     </IconButton>
-                    <IconButton size="small" aria-label="pdf"  onClick={DetallesPdf}>
-                      <DeleteIcon fontSize="small" color="success" />
-                    </IconButton>
+                    <PictureAsPdfIcon size="small" aria-label="pdf" onClick={() => { onClickPdf(row.id) }}>
+                      <DeleteIcon fontSize="small" color="secondary" />
+                    </PictureAsPdfIcon>
                   </TableCell>
 
                 </TableRow>

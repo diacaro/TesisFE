@@ -75,7 +75,7 @@ body {
   height: 50px;
 }
 .modal__select{
-height: 25px;  
+height: 20px;  
 }
 
 @media (max-width: 640px) {

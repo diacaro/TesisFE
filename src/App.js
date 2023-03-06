@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Link,
@@ -23,13 +23,30 @@ import Login from "./Pages/login/Login";
 import { ProtectedRoute } from "./Components/router/ProtectedRoute";
 import { AppContext, AppProvider } from "./Context/AppContext";
 import DetallesPdf from "./Pages/detalles/DetallesPdf";
+import { Dashboard } from "./Pages/dashboard/Dashboard";
+import { getUser } from './Services/userService';
+import jwt from 'jwt-decode';
 
 function App() {
-  const { auth, setAuth } = React.useContext(AppContext);
-const roleActual =localStorage.getItem("access")
-console.log('roleActual' + roleActual)
+const { auth, setAuth } = React.useContext(AppContext);
+const cokieActual = document.cookie.replace('token=','');  
+console.log(!cokieActual)
+useEffect(()=> {
+if (!!cokieActual) 
+    getUser(jwt(cokieActual).sub)
+                    .then(respuser =>{                    
+                    setAuth(respuser);
+                   
+                    }
+                    )
+
+  },[])
+
+
   return (
     <BrowserRouter>
+
+
       {(!auth.role)? (
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -38,7 +55,7 @@ console.log('roleActual' + roleActual)
         <div className="flex">
           <AppLayout>
             <Routes>
-              <Route index element={<h1> Bienvenido </h1>} />
+              <Route index element={<Dashboard/>} />
               <Route
                 path="/products"
                 element={
@@ -107,7 +124,7 @@ console.log('roleActual' + roleActual)
                 }
               />
               <Route
-                path="/pdf"
+                path="/pdf/:ordenId"
                 element={
                   <ProtectedRoute
                     isAllowed={!!(auth.role == "USER" || auth.role == "ADMIN" ||auth.role == "SUPERADMIN")}

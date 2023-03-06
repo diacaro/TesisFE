@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 // Formik & yup------------------------------------------------
@@ -80,12 +80,12 @@ const  formik  = useFormik({
           console.log(resp)
           document.cookie = `token=${resp.token};max-age=${60 * 60 * 3}; "path=/"; samesite=strict`
                     const cokieActual = document.cookie; 
-                    console.log(cokieActual)             
+                    console.log(cokieActual)          
                     setToken(cokieActual)
                     getUser(jwt(cokieActual.replace('token=','')).sub)
                     .then(respuser =>{                    
                     setAuth(respuser);
-                    localStorage.setItem("access","ADMIN");
+                    // localStorage.setItem("access","ADMIN");
                     navigate('/'); 
                     }
                     )

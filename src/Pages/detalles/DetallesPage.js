@@ -91,7 +91,7 @@ function DetallesPage({ordenId}) {
 }
 
   useEffect(() => {
-    console.log(ordenId);
+
     getDetalleByOrden(ordenId).then((data) => 
     setDetalles(data));
     getOrdenCLiente(ordenId).then(data => {
@@ -121,14 +121,13 @@ function DetallesPage({ordenId}) {
       setError(true);
       return;
     }
-    console.log(search);
+
     createDetalles({
       idOrden: ordenId,
       idProductos: search,
       cantidad
 
     }).then((data) => {
-      console.log(data);
       if (data.status === 200) {
         getDetalleByOrden(ordenId).then((dataDetalles) => 
         setDetalles(dataDetalles));
@@ -143,14 +142,14 @@ function DetallesPage({ordenId}) {
 
   return (
     <div className="product-page-container"   >
-      <div className="product-page">
+      <div className="details-page">
         <div className="modal__button__close__x">
       <button className="modal__button__close__x" onClick={onClickClose}>x</button>
       </div>
         <h2 className="details-page-tittle">Detalles</h2>
         <div className="details-page-tittle" >
-        <p><span>Cliente: </span><span>{orden.clientes}</span></p>
-        <p><span>Fecha: </span><span>{orden.createAt.substring(0,10)}</span></p>
+        <p><span>Cliente: </span><span>{orden.clientes}</span></p> 
+        <p><span>Fecha: </span><span>{String(orden.createAt).substring(0,10)}</span></p> 
 
         </div>
         <form onSubmit={onSubmit}>

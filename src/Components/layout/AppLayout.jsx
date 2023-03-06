@@ -6,8 +6,8 @@ import Sidebar from "../sidebar/Sidebar";
 
 const AppLayout = ({children}) => {
     return <div  >
-        {/* <Container maxWidth="xl">
-        <Toolbar disableGutters> */}
+        <Container maxWidth="xl">
+        <Toolbar disableGutters>
         <div style={{ padding: '0px 0px 0px 200px'}}>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
         <Sidebar />
@@ -16,14 +16,14 @@ const AppLayout = ({children}) => {
         </div>
 
 
-        {/* <div style={{ padding: '20px 0px 20px 0px'}}>
+        <div style={{ padding: '20px 0px 20px 0px'}}>
         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
         <Sidebar />
         {children}
         </Box>
         </div>
         </Toolbar>
-        </Container> */}
+        </Container>
 
         </div>
         

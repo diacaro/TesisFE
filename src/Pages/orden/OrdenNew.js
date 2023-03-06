@@ -39,14 +39,10 @@ function CustomerNew({ open }) {
   const [idClientes, setIdClientes] = useState("");
 
   const onClickSave = () => {
-    console.log("Guardando " + search);
+
     if (!search) {
       setError(true);
     } else {
-      console.log({
-        createAt,
-        idClientes: search,
-      });
       createOrden({
         createAt,
         idClientes: search,

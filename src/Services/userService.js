@@ -26,15 +26,11 @@ const getUserData = async () => {
 
 
 const login = async (credencials) => {
-    console.log(credencials)
+
     const resp = await fetch(`${API}/${model}/authenticate`, {
         method: 'POST',
         body: JSON.stringify(credencials),
-        headers: {
-            'Access-Control-Allow-Origin':'*',
-            'Content-type': 'application/json'
-    
-        }
+        headers:getHeadersAndToken()
     });
     return await resp.json();
 }

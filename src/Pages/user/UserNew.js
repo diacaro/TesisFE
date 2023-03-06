@@ -66,7 +66,7 @@ function UserNew({ open }) {
   };
 
   return (
-    <div className="modal"> 
+    <div className="userModal"> 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Nueva Usuario </DialogTitle>
         <div className="modal__container">

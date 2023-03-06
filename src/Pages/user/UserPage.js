@@ -37,7 +37,7 @@ function UserPage() {
   const [users, setUsers] = useState([]);
 
 
-  console.log("ingresando")
+
   useEffect(() => {
     getUserData().then(data => {
       setUsers(data);
@@ -68,8 +68,8 @@ function UserPage() {
   }
 
   return (
-    <div className="table-page-container">
-      <div className="table-user-page">
+    <div className="user-page-container">
+      <div className="user-user-page">
         <h2>Usuarios</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>

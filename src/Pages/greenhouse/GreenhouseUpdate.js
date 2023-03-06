@@ -4,7 +4,6 @@ import { findByIdGreenhouse, getListGreenhouse, updateGreenhouse } from '../../S
 import './GreenhouseUpdate.css'
 
 function GreenhouseUpdate({ invernaderoId }) {
-    console.log(invernaderoId)
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
     const [greenhouse, setGreenhouse] = useState({});

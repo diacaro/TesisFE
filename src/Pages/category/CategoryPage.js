@@ -66,9 +66,11 @@ function CategoryPage() {
   }
 
   return (
-    <div className="table-page-container">
-      <div className="table-page">
+    <div className="category-page-container">
+      <div className="category-page">
+        <div className="category-title-page">
         <h2>Categorias</h2>
+        </div>
         <div className="button-container">
           <form onSubmit={onSubmit}>
           
@@ -78,7 +80,7 @@ function CategoryPage() {
 
           </form>
         </div>
-          <dir/>
+      <div >
         <TableContainer component={Paper} >
           <Table sx={{ minWidth: 450 }} aria-label="simple table">
             <TableHead>
@@ -102,6 +104,7 @@ function CategoryPage() {
             </TableBody>
           </Table>
         </TableContainer>
+        </div>
       </div>
       <CategoryNew open={openModal} />
     </div>

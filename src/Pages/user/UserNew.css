@@ -12,14 +12,14 @@ body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
 }
-.modal {
+.userModal {
   width: auto;
   height: auto;
   display: grid;
   place-items: center;
   background-color: #f8f8fa;
   border-radius: 9px;
-  padding: 25px;
+  padding: 0px;
 }
 .modal__tittle{
   display:flex;

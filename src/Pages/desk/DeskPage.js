@@ -73,9 +73,11 @@ function DeskPage () {
     }
 
   return (
-    <div className="table-page-container">
-          <div className="table-page">
+    <div className="desk-page-container">
+          <div className="desk-page">
+            <div className="desk-title-page">
             <h2>Mesa</h2>
+            </div>
           
         <div className="button-container">
           <form onSubmit={onSubmit}>
@@ -86,7 +88,7 @@ function DeskPage () {
 
           </form>
         </div>
-
+      <div>
         <TableContainer component={Paper}  >
           <Table sx={{ minWidth: 450 }} aria-label="simple table">
             <TableHead>
@@ -117,6 +119,7 @@ function DeskPage () {
             </TableBody>
           </Table>
         </TableContainer>
+              </div>
 
         {!!openModal &&
                 (
