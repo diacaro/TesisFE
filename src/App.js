@@ -49,6 +49,7 @@ if (!!cokieActual)
 
       {(!auth.role)? (
         <Routes>
+          <Route index element={<Login />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       ) : (
