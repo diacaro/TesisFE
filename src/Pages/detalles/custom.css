@@ -147,6 +147,7 @@ section{
 }
 .invo-num-title {
 	width: 80%;
+	color:#eeeeee;
 }
 .invo-no {
 	width: 55%;
@@ -154,7 +155,7 @@ section{
     line-height: 24px;
 }
 .invo-num {
-    color: #888888;
+    color: #eeeeee;
     padding-left: 15px;
     font-size: 14px;
     line-height: 24px;
@@ -171,6 +172,7 @@ section{
 .invoice-header-contact {
 	display: inline-flex;
 	padding-top: 20px;
+	color: #eeeeee;
 }
 .invo-cont-wrap.invo-contact-wrap {
 	margin-right: 30px;

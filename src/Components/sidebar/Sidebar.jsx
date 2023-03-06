@@ -87,6 +87,7 @@ const Sidebar = () => {
   // change active index
   useEffect(() => {
     const curPath = window.location.pathname.split("/")[1];
+    
     const activeItem = sidebarNavItems.filter(item => item.roles.includes(auth.role)).findIndex(
       (item) => item.section === curPath
     );
@@ -100,12 +101,13 @@ const Sidebar = () => {
         document.cookie = c
           .replace(/^ +/, "")
           .replace(/=.*/, "=;expires=" + new Date(Today).toUTCString() + ";path=/");
+          setToken(null);
+          setAuth('');
       });
     
-    setToken(null);
-    setAuth('');
     
     navigate("/login", { replace: true });
+    window.location.reload()
   };
 
   return (

@@ -92,7 +92,9 @@ function OrdenPage () {
 
   };
   const onClickPdf = (id) => {
+
     navigate(`/pdf/${id}`)
+
 
 
   };
@@ -169,13 +171,13 @@ function OrdenPage () {
         {!!openModal &&
                 (
                   <Modal>
-                    { adding ? <DetallesPage ordenId={ordenId} /> :<OrdenNew open={openModal}/> }
+                    { adding ? <DetallesPage ordenId={ordenId} /> : <OrdenNew open={openModal}/>   }
                   </Modal>
                 )
         }
       
       </div>
-       {/* <DeskNew open={openModal}  /> */}
+      
        
     </div>
   );
