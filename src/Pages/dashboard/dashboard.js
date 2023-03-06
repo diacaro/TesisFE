@@ -8,8 +8,7 @@ export const Dashboard = () => {
 
     <div >
 
-
-      <img  src="img/portada.png" alt="img/portada.png" />
+      <h1> Bienvenido Mundiflora</h1>
 
 
     </div>
