@@ -2,7 +2,7 @@
 
 import './Dashboard.css'
 
-export const Dashboard = () => {
+function Dashboard  () {
   return (
 
     <div >
@@ -17,3 +17,4 @@ export const Dashboard = () => {
   
   )
 }
+export default Dashboard;
