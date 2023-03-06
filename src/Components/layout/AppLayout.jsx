@@ -8,7 +8,7 @@ const AppLayout = ({children}) => {
     return <div  >
         <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <div style={{ padding: '0px 0px 0px 200px'}}>
+        <div style={{ padding: '0px 0px 0px 280px'}}>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
         <Sidebar />
         {children}

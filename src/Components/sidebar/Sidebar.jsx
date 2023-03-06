@@ -101,12 +101,12 @@ const Sidebar = () => {
         document.cookie = c
           .replace(/^ +/, "")
           .replace(/=.*/, "=;expires=" + new Date(Today).toUTCString() + ";path=/");
-          setToken(null);
-          setAuth('');
-      });
+        });
+        
+        setToken(null);
+        setAuth('');
     
-    
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
     window.location.reload()
   };
 
