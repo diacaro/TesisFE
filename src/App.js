@@ -46,7 +46,6 @@ if (!!cokieActual)
   return (
     <BrowserRouter>
 
-
       {(!auth.role)? (
         <Routes>
           <Route index element={<Login />} />
@@ -61,7 +60,7 @@ if (!!cokieActual)
                 path="/products"
                 element={
                   <ProtectedRoute
-                    // redirectTo="/login"
+
                     isAllowed={!!(auth.role == "ADMIN" || auth.role =="SUPERADMIN")}
                   >
                     <ProductPage />
@@ -72,7 +71,7 @@ if (!!cokieActual)
                 path="/invernadero"
                 element={
                   <ProtectedRoute
-                    // redirectTo="/login"
+
                     isAllowed={!!(auth.role == "ADMIN" || auth.role =="SUPERADMIN")}
                   >
                     <GreenhousePage />
@@ -83,7 +82,7 @@ if (!!cokieActual)
                 path="/category"
                 element={
                   <ProtectedRoute
-                    // redirectTo="/login"
+
                     isAllowed={!!(auth.role == "ADMIN" || auth.role =="SUPERADMIN")}
                   >
                     <CategoryPage />
@@ -94,7 +93,7 @@ if (!!cokieActual)
                 path="/mesa"
                 element={
                   <ProtectedRoute
-                    // redirectTo="/login"
+
                     isAllowed={!!(auth.role == "ADMIN" || auth.role =="SUPERADMIN")}
                   >
                     <DeskPage />
@@ -105,7 +104,7 @@ if (!!cokieActual)
                 path="/customers"
                 element={
                   <ProtectedRoute
-                    // redirectTo="/login"
+
                     isAllowed={!!(auth.role == "ADMIN" || auth.role =="SUPERADMIN")}
                   >
                     <CustomerPage />
